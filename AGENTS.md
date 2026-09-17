@@ -12,6 +12,10 @@ This project is a learning exercise, not a delivery race. The agent proposes, I 
 
 **One task in flight at a time.** Exactly one task branch exists at any moment. The next branch is not created until the current task's PR is approved, merged, and its checkbox ticked in `specs/active.md`. Never start a second task while the first is awaiting review.
 
+**Commit messages stay short.** A Conventional Commits subject line, then three or four lines of plain language saying what the commit does and why anyone should care. Write them so a person who has never opened this repository understands the point. No essays, no bullet lists, no restating the diff — the reasoning belongs in the spec or an ADR, where it stays findable.
+
+**I write the pull request, you merge it.** The agent pushes the branch and opens the PR with a description covering what changed, why, and what to look at while reviewing. Reviewing, approving and merging are mine alone — the agent never merges a PR, never approves one, and never pushes to `main` directly.
+
 **Waiting is the correct state.** If I have not replied, do not pick up adjacent work to stay busy. Report what is done, say what you are waiting on, and stop.
 
 ## Commands
@@ -31,7 +35,7 @@ This project is a learning exercise, not a delivery race. The agent proposes, I 
 - **State**: server state → TanStack Query (query keys via a central factory in `api/keys.ts`, never loose string literals); client state → Zustand; Context reserved for dependency injection (theme, i18n). Never mirror server data into Zustand.
 - **Styling**: unistyles + tokens only. Hardcoded hex outside `src/theme/` is forbidden, as are `style={{…}}` objects with literal values. No escape props like `customBackgroundColor?: string` on base components.
 - **Forms**: react-hook-form + zod schemas. Schemas live in `model/` and are shared with the backend. A form **never** carries state between screens.
-- **Commits**: Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`). One commit ≠ one file; one commit = one coherent change that compiles and passes lint.
+- **Commits**: Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`). One commit ≠ one file; one commit = one coherent change that compiles and passes lint. Keep the body to three or four plain-language lines — see *How we work*.
 
 ## Rules
 
