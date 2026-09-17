@@ -1,6 +1,6 @@
 # Constitution — financeApp
 
-> The constitution holds the decisions of this project that **do not change on a whim**. Anything here can only be modified through a written ADR that explicitly supersedes it. The point is to protect the project from decision drift — the same drift that turns real codebases into museums of half-finished migrations.
+> The constitution holds the decisions of this project that **do not change on a whim**. Anything here can only be modified through a written ADR that explicitly supersedes it. The point is to protect the project from decision drift.
 
 ---
 
@@ -12,7 +12,7 @@
 
 - It is **not** a banking app. No transfers, no payments, no product sign-ups.
 - It is **not** a feature-completeness exercise. Scope is capped at ~6–7 screens on purpose.
-- It is **not** cross-platform beyond iOS + Android. No web, no tablet, no TV.
+- It is **not** cross-platform beyond iOS + Android.
 - It is **not** multi-brand or multi-tenant.
 
 If a proposal moves the project toward any of these, it is out of scope by default.
@@ -22,10 +22,6 @@ If a proposal moves the project toward any of these, it is out of scope by defau
 ## 2. Golden rule
 
 **Every architectural rule must be a lint error, a compile error, or a failing test — never a documented agreement.**
-
-Rules that live only in reviewers' heads get broken under deadline pressure. This project's job is to prove the opposite: that structure survives contact with reality when it is enforced by the toolchain. When you find a rule that isn't mechanically enforced, the correct action is to enforce it, not to add a bullet to a wiki.
-
----
 
 ## 3. Closed technology stack
 
