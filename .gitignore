@@ -1,0 +1,10 @@
+.env
+.mcp.json
+
+# Design canvas — reference material, not a build input. See design/README.md.
+# The palette extraction (canvas-tokens.json) IS committed so that acceptance
+# criterion C9 can run in CI without the canvas being present.
+design/*
+!design/README.md
+!design/canvas-tokens.json
+!design/extract-tokens.mjs
