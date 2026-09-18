@@ -14,7 +14,7 @@ This directory holds the log of closed architectural decisions for financeApp. E
 
 | #    | Title                                 | Status   |
 | ---- | ------------------------------------- | -------- |
-| 0001 | TypeScript 6.x replaces the 5.x entry | Proposed |
+| 0001 | TypeScript 6.x replaces the 5.x entry | Accepted |
 
 <!-- Add rows above this line as ADRs are written. -->
 

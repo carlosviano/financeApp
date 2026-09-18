@@ -1,7 +1,8 @@
 # 0001 — TypeScript 6.x replaces the 5.x entry in the stack table
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-09-17
+- **Accepted:** 2026-09-18
 - **Supersedes:** constitution §3, the "Language" row
 
 ## Context
