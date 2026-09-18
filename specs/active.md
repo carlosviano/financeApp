@@ -10,14 +10,14 @@
 
 One task = one branch off `main` = one PR. Ordered by dependency, not by criterion number. Tick the checkbox and the criteria it covered in the same PR that lands it.
 
-**Human in the loop.** Tasks are worked one at a time and each one stops for review before it is committed. No task below is started until the previous one's PR has been reviewed, approved and merged — see *How we work* in `AGENTS.md`.
+**Human in the loop.** Tasks are worked one at a time and each one stops for review before it is committed. No task below is started until the previous one's PR has been reviewed, approved and merged — see _How we work_ in `AGENTS.md`.
 
 | #   | Task                                                                | Branch                            | Criteria               |
 | --- | ------------------------------------------------------------------- | --------------------------------- | ---------------------- |
-| 0   | Commit the SDD scaffolding; pin the design-token extraction | `chore/phase-1-sdd-foundation` | — (enables C9, C10) |
+| 0   | Commit the SDD scaffolding; pin the design-token extraction         | `chore/phase-1-sdd-foundation`    | — (enables C9, C10)    |
 | 1   | Scaffold the Expo/TS project and the `pnpm verify` gate             | `chore/phase-1-scaffold`          | A1–A5                  |
 | 2   | ESLint boundary rules plus their fixture tests                      | `chore/phase-1-eslint-boundaries` | B1–B5                  |
-| 3   | Extract primitive tokens from the design canvas                     | `feat/phase-1-token-primitives`   | C2, C5, C9, C10             |
+| 3   | Extract primitive tokens from the design canvas                     | `feat/phase-1-token-primitives`   | C2, C5, C9, C10        |
 | 4   | Semantic and component layers, with layer violations as type errors | `feat/phase-1-token-layers`       | C1, C3, C4, C6, C7, C8 |
 | 5   | Derive the dark palette from light; contrast tests                  | `feat/phase-1-theme-derivation`   | D10, D11, D12          |
 | 6   | Theme runtime: three modes, live OS following                       | `feat/phase-1-theme-runtime`      | D1, D2, D3, D5         |
@@ -26,8 +26,8 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 | 9   | i18n layer and the no-literal-strings rule                          | `feat/phase-1-i18n-lint`          | G1, G2                 |
 | 10  | `Button` — the component that proves the system                     | `feat/phase-1-button`             | F1–F6                  |
 
-- [ ] 0 · `chore/phase-1-sdd-foundation`
-- [ ] 1 · `chore/phase-1-scaffold`
+- [x] 0 · `chore/phase-1-sdd-foundation`
+- [x] 1 · `chore/phase-1-scaffold`
 - [ ] 2 · `chore/phase-1-eslint-boundaries`
 - [ ] 3 · `feat/phase-1-token-primitives`
 - [ ] 4 · `feat/phase-1-token-layers`
@@ -82,72 +82,72 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 ### A · Verification gate
 
-- **A1.** The system **shall** expose a `pnpm verify` script that runs `lint`, `typecheck` and `test` in that order and exits non-zero if any of the three fails.
-- **A2.** The system **shall** compile under TypeScript `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes` and `noImplicitOverride`.
-- **A3.** **When** a pull request targets `main`, the system **shall** run `pnpm verify` on Linux in GitHub Actions and **shall** block merge if it exits non-zero.
-- **A4.** **If** a file under `src/**` uses the `any` type, **then** the system **shall** fail lint.
-- **A5.** **If** a file under `src/**` uses `@ts-ignore` or `@ts-expect-error` without a trailing justification comment, **then** the system **shall** fail lint.
+- [x] **A1.** The system **shall** expose a `pnpm verify` script that runs `lint`, `typecheck` and `test` in that order and exits non-zero if any of the three fails.
+- [x] **A2.** The system **shall** compile under TypeScript `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes` and `noImplicitOverride`.
+- [ ] **A3.** **When** a pull request targets `main`, the system **shall** run `pnpm verify` on Linux in GitHub Actions and **shall** block merge if it exits non-zero.
+- [x] **A4.** **If** a file under `src/**` uses the `any` type, **then** the system **shall** fail lint.
+- [x] **A5.** **If** a file under `src/**` uses `@ts-ignore` or `@ts-expect-error` without a trailing justification comment, **then** the system **shall** fail lint.
 
 ### B · Import boundaries
 
-- **B1.** **If** a module under `src/features/<a>/**` imports from `src/features/<b>/**` by any path other than that feature's `index.ts`, **then** the system **shall** fail lint.
-- **B2.** **If** a module under `src/shared/**` imports from `src/features/**`, **then** the system **shall** fail lint.
-- **B3.** **If** a file under `src/app/**` is neither an `expo-router` route, nor a layout, nor prefixed with `_`, **then** the system **shall** fail lint.
-- **B4.** **If** a file under `src/**` carries an `eslint-disable` directive naming a boundary rule, **then** the system **shall** fail the architecture test suite.
-- **B5.** The system **shall** hold, for each of B1–B3, a fixture module under `tests/architecture/fixtures/` that ESLint reports as an error, and the architecture test suite **shall** fail **if** any fixture stops being reported.
+- [ ] **B1.** **If** a module under `src/features/<a>/**` imports from `src/features/<b>/**` by any path other than that feature's `index.ts`, **then** the system **shall** fail lint.
+- [ ] **B2.** **If** a module under `src/shared/**` imports from `src/features/**`, **then** the system **shall** fail lint.
+- [ ] **B3.** **If** a file under `src/app/**` is neither an `expo-router` route, nor a layout, nor prefixed with `_`, **then** the system **shall** fail lint.
+- [ ] **B4.** **If** a file under `src/**` carries an `eslint-disable` directive naming a boundary rule, **then** the system **shall** fail the architecture test suite.
+- [ ] **B5.** The system **shall** hold, for each of B1–B3, a fixture module under `tests/architecture/fixtures/` that ESLint reports as an error, and the architecture test suite **shall** fail **if** any fixture stops being reported.
 
 ### C · Token system
 
-- **C1.** The system **shall** define design tokens in exactly three layers — primitive, semantic, component — each importable only by the layer directly above it.
-- **C2.** The primitive layer **shall** be the only module in the repository containing literal colour values.
-- **C3.** **If** a semantic token is assigned a literal colour value instead of a primitive reference, **then** the system **shall** fail typecheck.
-- **C4.** **If** a component token is assigned a primitive reference or a literal instead of a semantic reference, **then** the system **shall** fail typecheck.
-- **C5.** **If** a file outside `src/theme/**` contains a hex, `rgb()`, `rgba()`, `hsl()` or `oklch()` colour literal, **then** the system **shall** fail lint.
-- **C6.** **If** a JSX `style` prop is given an inline object literal containing a literal value, **then** the system **shall** fail lint.
-- **C7.** **If** a semantic or component token name contains an appearance word — `green`, `red`, `blue`, `gold`, `teal`, `grey`, `gray`, `dark`, `light` — **then** the system **shall** fail the token-naming test.
-- **C8.** The typography scale **shall** expose at most eight variants, and **if** a ninth variant is added, **then** the system **shall** fail typecheck.
-- **C9.** The primitive layer **shall** carry the colour, radius, shadow and font-family values pinned in `design/canvas-tokens.json`, and the system **shall** fail the token-extraction test **if** a primitive value diverges from the value pinned there.
-- **C10.** **Where** the design canvas is present on the machine running the tests, the system **shall** fail **if** `design/canvas-tokens.json` is stale with respect to the canvas.
+- [ ] **C1.** The system **shall** define design tokens in exactly three layers — primitive, semantic, component — each importable only by the layer directly above it.
+- [ ] **C2.** The primitive layer **shall** be the only module in the repository containing literal colour values.
+- [ ] **C3.** **If** a semantic token is assigned a literal colour value instead of a primitive reference, **then** the system **shall** fail typecheck.
+- [ ] **C4.** **If** a component token is assigned a primitive reference or a literal instead of a semantic reference, **then** the system **shall** fail typecheck.
+- [ ] **C5.** **If** a file outside `src/theme/**` contains a hex, `rgb()`, `rgba()`, `hsl()` or `oklch()` colour literal, **then** the system **shall** fail lint.
+- [ ] **C6.** **If** a JSX `style` prop is given an inline object literal containing a literal value, **then** the system **shall** fail lint.
+- [ ] **C7.** **If** a semantic or component token name contains an appearance word — `green`, `red`, `blue`, `gold`, `teal`, `grey`, `gray`, `dark`, `light` — **then** the system **shall** fail the token-naming test.
+- [ ] **C8.** The typography scale **shall** expose at most eight variants, and **if** a ninth variant is added, **then** the system **shall** fail typecheck.
+- [ ] **C9.** The primitive layer **shall** carry the colour, radius, shadow and font-family values pinned in `design/canvas-tokens.json`, and the system **shall** fail the token-extraction test **if** a primitive value diverges from the value pinned there.
+- [ ] **C10.** **Where** the design canvas is present on the machine running the tests, the system **shall** fail **if** `design/canvas-tokens.json` is stale with respect to the canvas.
 
 ### D · Theme runtime and persistence
 
-- **D1.** The system **shall** support exactly three theme modes: `light`, `dark` and `system`.
-- **D2.** **While** the theme mode is `system`, the system **shall** follow the operating system colour scheme and **shall** apply a change to it without requiring a restart.
-- **D3.** **When** the user selects a theme mode, the system **shall** apply it to the running app.
-- **D4.** **When** the user selects a theme mode, the system **shall** persist it to MMKV under a versioned key.
-- **D5.** **When** the app boots with a valid persisted theme mode, the system **shall** apply that mode before the first paint.
-- **D6.** **If** no persisted theme mode is present at boot, **then** the system **shall** apply `system` and **shall** persist nothing until the user makes a choice.
-- **D7.** **If** a persisted theme mode is present but is not one of the three valid modes, **then** the system **shall** discard it, apply `system`, and return an `invalid` recovery status from the theme loader.
-- **D8.** **If** reading the persisted theme mode throws at boot, **then** the system **shall** apply `system`, **shall** return an `unavailable` recovery status, and **shall not** propagate the error to the caller.
-- **D9.** **If** persisting a selected theme mode fails, **then** the system **shall** keep that mode applied for the remainder of the session.
-- **D10.** The dark palette **shall** be produced from the light palette by a pure checked-in transform, and the system **shall** fail the derivation test **if** any dark semantic token is authored by hand rather than produced by that transform.
-- **D11.** **If** a semantic token has a value in one theme and no value in the other, **then** the system **shall** fail typecheck.
-- **D12.** Every semantic text-on-surface token pair **shall** meet a WCAG AA contrast ratio of at least 4.5:1 in both the light and the dark theme.
+- [ ] **D1.** The system **shall** support exactly three theme modes: `light`, `dark` and `system`.
+- [ ] **D2.** **While** the theme mode is `system`, the system **shall** follow the operating system colour scheme and **shall** apply a change to it without requiring a restart.
+- [ ] **D3.** **When** the user selects a theme mode, the system **shall** apply it to the running app.
+- [ ] **D4.** **When** the user selects a theme mode, the system **shall** persist it to MMKV under a versioned key.
+- [ ] **D5.** **When** the app boots with a valid persisted theme mode, the system **shall** apply that mode before the first paint.
+- [ ] **D6.** **If** no persisted theme mode is present at boot, **then** the system **shall** apply `system` and **shall** persist nothing until the user makes a choice.
+- [ ] **D7.** **If** a persisted theme mode is present but is not one of the three valid modes, **then** the system **shall** discard it, apply `system`, and return an `invalid` recovery status from the theme loader.
+- [ ] **D8.** **If** reading the persisted theme mode throws at boot, **then** the system **shall** apply `system`, **shall** return an `unavailable` recovery status, and **shall not** propagate the error to the caller.
+- [ ] **D9.** **If** persisting a selected theme mode fails, **then** the system **shall** keep that mode applied for the remainder of the session.
+- [ ] **D10.** The dark palette **shall** be produced from the light palette by a pure checked-in transform, and the system **shall** fail the derivation test **if** any dark semantic token is authored by hand rather than produced by that transform.
+- [ ] **D11.** **If** a semantic token has a value in one theme and no value in the other, **then** the system **shall** fail typecheck.
+- [ ] **D12.** Every semantic text-on-surface token pair **shall** meet a WCAG AA contrast ratio of at least 4.5:1 in both the light and the dark theme.
 
 ### E · Accessibility primitives
 
-- **E1.** The system **shall** scale text with the operating system font-scale setting.
-- **E2.** **If** the operating system font scale exceeds 2.0, **then** the system **shall** clamp body text to 2.0.
-- **E3.** **If** the operating system font scale exceeds 1.6, **then** the system **shall** clamp money amounts to 1.6.
-- **E4.** **When** the operating system font scale is exactly 2.0, the system **shall** render body text at 2.0.
-- **E5.** **When** the operating system font scale is exactly 1.6, the system **shall** render money amounts at 1.6.
-- **E6.** **While** the operating system reports reduced motion as enabled, the system **shall** render transitions as opacity-only and **shall not** run scale or translate animations.
-- **E7.** **If** the reduced-motion setting cannot be read, **then** the system **shall** behave as though reduced motion is enabled.
-- **E8.** Every interactive element **shall** expose a touch target of at least 44×44 points.
+- [ ] **E1.** The system **shall** scale text with the operating system font-scale setting.
+- [ ] **E2.** **If** the operating system font scale exceeds 2.0, **then** the system **shall** clamp body text to 2.0.
+- [ ] **E3.** **If** the operating system font scale exceeds 1.6, **then** the system **shall** clamp money amounts to 1.6.
+- [ ] **E4.** **When** the operating system font scale is exactly 2.0, the system **shall** render body text at 2.0.
+- [ ] **E5.** **When** the operating system font scale is exactly 1.6, the system **shall** render money amounts at 1.6.
+- [ ] **E6.** **While** the operating system reports reduced motion as enabled, the system **shall** render transitions as opacity-only and **shall not** run scale or translate animations.
+- [ ] **E7.** **If** the reduced-motion setting cannot be read, **then** the system **shall** behave as though reduced motion is enabled.
+- [ ] **E8.** Every interactive element **shall** expose a touch target of at least 44×44 points.
 
 ### F · Button
 
-- **F1.** `Button` **shall** read every colour, radius, spacing and typography value it renders from the component token layer.
-- **F2.** **If** a prop whose name matches `custom*Color`, `*ColorOverride` or `*Style` is added to `Button`'s public props, **then** the system **shall** fail typecheck.
-- **F3.** **While** `Button` is pressed, the system **shall** apply its pressed component tokens.
-- **F4.** **While** `Button` is loading, the system **shall** render it as disabled and **shall** expose `accessibilityState.busy` as true.
-- **F5.** **If** `Button` is pressed while disabled or loading, **then** the system **shall not** invoke `onPress`.
-- **F6.** **While** reduced motion is enabled, `Button` **shall** change press state without a scale animation.
+- [ ] **F1.** `Button` **shall** read every colour, radius, spacing and typography value it renders from the component token layer.
+- [ ] **F2.** **If** a prop whose name matches `custom*Color`, `*ColorOverride` or `*Style` is added to `Button`'s public props, **then** the system **shall** fail typecheck.
+- [ ] **F3.** **While** `Button` is pressed, the system **shall** apply its pressed component tokens.
+- [ ] **F4.** **While** `Button` is loading, the system **shall** render it as disabled and **shall** expose `accessibilityState.busy` as true.
+- [ ] **F5.** **If** `Button` is pressed while disabled or loading, **then** the system **shall not** invoke `onPress`.
+- [ ] **F6.** **While** reduced motion is enabled, `Button` **shall** change press state without a scale animation.
 
 ### G · Internationalisation
 
-- **G1.** **If** a user-visible string literal appears in JSX under `src/**`, **then** the system **shall** fail lint.
-- **G2.** **If** a translation key referenced in code is absent from the default locale catalogue, **then** the system **shall** fail the i18n completeness test.
+- [ ] **G1.** **If** a user-visible string literal appears in JSX under `src/**`, **then** the system **shall** fail lint.
+- [ ] **G2.** **If** a translation key referenced in code is absent from the default locale catalogue, **then** the system **shall** fail the i18n completeness test.
 
 ---
 
@@ -155,7 +155,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 **The dark palette is derived, not designed.** All thirty-four artboards share one identical `:root` block and it is light-only — `Settings-Appearance` offers Claro / Oscuro / Automático, but no dark values exist anywhere in the canvas. Rather than invent a second palette by hand and then have to keep two palettes honest forever, the dark theme is the output of a pure function over the light primitives: neutrals are converted to OKLCH and their lightness remapped along a defined ramp, while accent hue and chroma are preserved and only lightness is lifted to clear the darker surfaces. D10 is what stops this drifting — the test regenerates the dark palette from light and fails if the checked-in values disagree, so a hand-edit is caught rather than absorbed. D12 is what stops the transform producing something unreadable. If a specific token genuinely cannot be derived acceptably, the fix is an explicit, named exception in the transform, not a hand-written value beside the generated ones.
 
-**The design canvas is not a build input.** `design/redesign-pantallas/` is ~3.1 MB of generated HTML and is gitignored; what is committed is `design/canvas-tokens.json`, the 26 `:root` custom properties all 34 artboards share, pinned with a SHA-256 of the block they came from. C9 checks the primitive layer against that file, so it runs on a CI machine that has never seen the canvas — which matters, because a check that only runs on one laptop is exactly the documented agreement the golden rule forbids. C10 is the other half: on a machine that *does* have the canvas, `node design/extract-tokens.mjs --check` fails if the pinned extraction has gone stale, so design drift is caught where the design lives and token drift is caught everywhere. The extractor refuses to emit anything if the artboards stop agreeing on one palette, since at that point there is no single source to extract from.
+**The design canvas is not a build input.** `design/redesign-pantallas/` is ~3.1 MB of generated HTML and is gitignored; what is committed is `design/canvas-tokens.json`, the 26 `:root` custom properties all 34 artboards share, pinned with a SHA-256 of the block they came from. C9 checks the primitive layer against that file, so it runs on a CI machine that has never seen the canvas — which matters, because a check that only runs on one laptop is exactly the documented agreement the golden rule forbids. C10 is the other half: on a machine that _does_ have the canvas, `node design/extract-tokens.mjs --check` fails if the pinned extraction has gone stale, so design drift is caught where the design lives and token drift is caught everywhere. The extractor refuses to emit anything if the artboards stop agreeing on one palette, since at that point there is no single source to extract from.
 
 **Cross-layer token violations are type errors because branding makes them type errors.** Primitive values carry an opaque branded type; the semantic layer is typed as a mapping whose values must be that brand; the component layer as a mapping whose values must be the semantic brand. A literal assigned at the semantic layer is a type mismatch, not a lint heuristic. This is the reason C3 and C4 say _typecheck_ rather than _lint_ — it costs nothing extra and it cannot be disabled inline.
 

@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "financeApp",
+    "slug": "financeapp",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "financeapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.carlosviano.financeapp"
+    },
+    "android": {
+      "package": "com.carlosviano.financeapp",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
