@@ -8,12 +8,12 @@ The visual design for financeApp is a Claude Design canvas: 34 artboards coverin
 
 Keep your own copy of the canvas at `design/redesign-pantallas/`. Nothing in `pnpm verify` requires it.
 
-## What *is* committed, and why
+## What _is_ committed, and why
 
-| File | Purpose |
-| ---- | ------- |
+| File                 | Purpose                                                                                                                                                   |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `canvas-tokens.json` | The 26 `:root` custom properties shared by all 34 artboards — colours, radii, shadows, font families — pinned with a SHA-256 of the block they came from. |
-| `extract-tokens.mjs` | Regenerates the above from the canvas. Zero dependencies, Node only. |
+| `extract-tokens.mjs` | Regenerates the above from the canvas. Zero dependencies, Node only.                                                                                      |
 
 The extraction exists because acceptance criterion **C9** requires the primitive token layer to match the design, and a check that only runs on one laptop is precisely the "documented agreement" the project's golden rule forbids. Committing the extraction lets that check run in CI without dragging the canvas along with it.
 

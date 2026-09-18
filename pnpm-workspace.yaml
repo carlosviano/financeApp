@@ -1,0 +1,8 @@
+allowBuilds:
+  '@parcel/watcher': true
+  unrs-resolver: true
+# pnpm blocks install-time scripts by default, which is the right default: a
+# postinstall script is arbitrary code from a transitive dependency. These two
+# are allowed by name because both compile a native binary during install --
+# @parcel/watcher backs Metro's file watching, unrs-resolver backs the ESLint
+# import resolver. Everything else stays blocked.
