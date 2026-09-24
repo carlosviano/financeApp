@@ -28,7 +28,7 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 
 - [x] 0 · `chore/phase-1-sdd-foundation`
 - [x] 1 · `chore/phase-1-scaffold`
-- [ ] 2 · `chore/phase-1-eslint-boundaries`
+- [x] 2 · `chore/phase-1-eslint-boundaries`
 - [ ] 3 · `feat/phase-1-token-primitives`
 - [ ] 4 · `feat/phase-1-token-layers`
 - [ ] 5 · `feat/phase-1-theme-derivation`
@@ -84,17 +84,17 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 - [x] **A1.** The system **shall** expose a `pnpm verify` script that runs `lint`, `typecheck` and `test` in that order and exits non-zero if any of the three fails.
 - [x] **A2.** The system **shall** compile under TypeScript `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes` and `noImplicitOverride`.
-- [ ] **A3.** **When** a pull request targets `main`, the system **shall** run `pnpm verify` on Linux in GitHub Actions and **shall** block merge if it exits non-zero.
+- [x] **A3.** **When** a pull request targets `main`, the system **shall** run `pnpm verify` on Linux in GitHub Actions and **shall** block merge if it exits non-zero.
 - [x] **A4.** **If** a file under `src/**` uses the `any` type, **then** the system **shall** fail lint.
 - [x] **A5.** **If** a file under `src/**` uses `@ts-ignore` or `@ts-expect-error` without a trailing justification comment, **then** the system **shall** fail lint.
 
 ### B · Import boundaries
 
-- [ ] **B1.** **If** a module under `src/features/<a>/**` imports from `src/features/<b>/**` by any path other than that feature's `index.ts`, **then** the system **shall** fail lint.
-- [ ] **B2.** **If** a module under `src/shared/**` imports from `src/features/**`, **then** the system **shall** fail lint.
-- [ ] **B3.** **If** a file under `src/app/**` is neither an `expo-router` route, nor a layout, nor prefixed with `_`, **then** the system **shall** fail lint.
-- [ ] **B4.** **If** a file under `src/**` carries an `eslint-disable` directive naming a boundary rule, **then** the system **shall** fail the architecture test suite.
-- [ ] **B5.** The system **shall** hold, for each of B1–B3, a fixture module under `tests/architecture/fixtures/` that ESLint reports as an error, and the architecture test suite **shall** fail **if** any fixture stops being reported.
+- [x] **B1.** **If** a module under `src/features/<a>/**` imports from `src/features/<b>/**` by any path other than that feature's `index.ts`, **then** the system **shall** fail lint.
+- [x] **B2.** **If** a module under `src/shared/**` imports from `src/features/**`, **then** the system **shall** fail lint.
+- [x] **B3.** **If** a file under `src/app/**` is neither an `expo-router` route, nor a layout, nor prefixed with `_`, **then** the system **shall** fail lint.
+- [x] **B4.** **If** a file under `src/**` carries an `eslint-disable` directive naming a boundary rule, **then** the system **shall** fail the architecture test suite.
+- [x] **B5.** The system **shall** hold, for each of B1–B3, a fixture module under `tests/architecture/fixtures/` that ESLint reports as an error, and the architecture test suite **shall** fail **if** any fixture stops being reported.
 
 ### C · Token system
 
