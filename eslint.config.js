@@ -5,6 +5,7 @@ const { defineConfig } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const tseslint = require('typescript-eslint');
 const prettier = require('eslint-config-prettier/flat');
+const architecture = require('./eslint.boundaries');
 
 module.exports = defineConfig([
   expoConfig,
@@ -37,9 +38,30 @@ module.exports = defineConfig([
     },
   },
   {
+    // The architecture rules from constitution §4. They apply to src/** only —
+    // config files and tests sit outside the element graph.
+    files: ['src/**/*.{ts,tsx}'],
+    plugins: architecture.plugins,
+    settings: architecture.settings,
+    rules: architecture.rules,
+  },
+  {
+    // The B3 rule asks whether a file is a route, which is only a meaningful
+    // question inside the routes directory.
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/app/**/*'],
+    rules: { 'architecture/app-routes-only': 'off' },
+  },
+  {
     // Config and tooling files run in Node and are not part of the typed
     // program, so the type-aware rules have nothing to work with there.
-    files: ['*.config.js', 'jest.setup.js', 'design/**/*.mjs'],
+    files: [
+      '*.config.js',
+      'eslint.boundaries.js',
+      'tools/**/*.js',
+      'jest.setup.js',
+      'design/**/*.mjs',
+    ],
     extends: [tseslint.configs.disableTypeChecked],
     languageOptions: {
       sourceType: 'commonjs',
@@ -55,6 +77,17 @@ module.exports = defineConfig([
   },
   prettier,
   {
-    ignores: ['node_modules/', '.expo/', 'dist/', 'android/', 'ios/', 'design/redesign-pantallas/'],
+    ignores: [
+      'node_modules/',
+      '.expo/',
+      'dist/',
+      'android/',
+      'ios/',
+      'design/redesign-pantallas/',
+      // The fixtures are files that must FAIL lint. They are linted
+      // deliberately by tests/architecture/boundaries.test.ts, which is the
+      // only place their errors are expected (criterion B5).
+      'tests/architecture/fixtures/',
+    ],
   },
 ]);
