@@ -20,7 +20,15 @@ This project is a learning exercise, not a delivery race. The agent proposes, I 
 
 **No AI attribution anywhere.** Never add a `Co-Authored-By` trailer naming Claude to a commit, and never add a "Generated with Claude Code" line to a pull request description. This repository is a portfolio, and the commit history should read as mine.
 
-**Keep the learning notes current.** `notes/` is gitignored study material. When a task makes a real choice — a library, a config, a trade-off — add or extend the note covering it: what was chosen, what the alternatives were, why, and what to say about it in an interview. ADRs record decisions for the repository; these notes explain them for me.
+**Simple first.** Propose the simplest thing that works. No generators, extraction scripts, custom checks or extra tooling unless I ask for them. Keep comments and docs short, and don't add files that only restate the obvious. The design canvas is a guide: pick values close to it instead of copying it literally.
+
+**Learning is part of every task.** The goal of this project is to reach a senior level, so understanding each decision matters as much as shipping it. `notes/` is gitignored study material and never appears in this repository.
+
+- **Dependency briefs.** Before installing a package, write a one-page brief in `notes/deps/<package>.md`. It covers what the package solves, how it works under the hood, the alternatives and why they lose, what can go wrong, and two or three interview questions. I read it, then approve the install.
+- **Task notes.** When a task makes a real choice — a library, a config, a trade-off — add or extend the note covering it: what was chosen, the alternatives, why, and what to say about it in an interview. ADRs record decisions for the repository; these notes explain them for me.
+- **Review questions.** At the end of each task, before I merge, ask me two or three questions about it. I answer them in that task's note, under `## My answers`.
+- **Role swaps.** For one or two MVP screens, I write the code and you review it the way a senior would.
+- **Index.** Keep `notes/README.md` listing every note and brief.
 
 **Waiting is the correct state.** If I have not replied, do not pick up adjacent work to stay busy. Report what is done, say what you are waiting on, and stop.
 
