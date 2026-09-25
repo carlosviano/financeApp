@@ -50,8 +50,8 @@ Everything outside the acceptance-criteria section is prose. Don't force EARS on
 
 ## Index of archived specs
 
-| #   | Phase | Closed on | File |
-| --- | ----- | --------- | ---- |
-| —   | —     | —         | —    |
+| #   | Phase                      | Closed on  | File                                             |
+| --- | -------------------------- | ---------- | ------------------------------------------------ |
+| 1   | Foundations (closed early) | 2026-09-25 | [phase-1-foundations.md](phase-1-foundations.md) |
 
 <!-- Add rows above this line as phases close. -->
