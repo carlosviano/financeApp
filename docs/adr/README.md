@@ -16,6 +16,7 @@ This directory holds the log of closed architectural decisions for financeApp. E
 | ---- | ------------------------------------------------------ | -------- |
 | 0001 | TypeScript 6.x replaces the 5.x entry                  | Accepted |
 | 0002 | Three token layers, kept apart by branded colour types | Proposed |
+| 0003 | The dark palette is written by hand                    | Accepted |
 
 <!-- Add rows above this line as ADRs are written. -->
 

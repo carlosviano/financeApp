@@ -57,3 +57,6 @@ export const nineVariants: ScaleOfAtMostEight = [
   'h',
   'i',
 ] as const;
+
+// @ts-expect-error D11: every theme fills every role
+export const missingRole: Role = { default: palette.teal[700] };
