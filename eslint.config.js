@@ -1,11 +1,13 @@
 // Flat ESLint config. The rules here are the enforcement half of the project's
 // golden rule: an architectural decision that only lives in a document is not
-// enforced at all. Criteria A4 and A5 of specs/active.md land in this file.
+// enforced at all. Criteria A4, A5, C2 and C5 of specs/active.md land in this
+// file.
 const { defineConfig } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const tseslint = require('typescript-eslint');
 const prettier = require('eslint-config-prettier/flat');
 const architecture = require('./eslint.boundaries');
+const noColourLiterals = require('./tools/eslint-rules/no-colour-literals');
 
 module.exports = defineConfig([
   expoConfig,
@@ -53,15 +55,19 @@ module.exports = defineConfig([
     rules: { 'architecture/app-routes-only': 'off' },
   },
   {
+    // C2, C5 — the primitive layer is the only module allowed a colour
+    // literal. This is narrower than "anything in src/theme": the semantic
+    // and component layers live there too and must reference primitives.
+    // Tests are exempt because checking colour values means writing them.
+    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
+    ignores: ['src/theme/primitives.ts', 'tests/**'],
+    plugins: { 'design-system': { rules: { 'no-colour-literals': noColourLiterals } } },
+    rules: { 'design-system/no-colour-literals': 'error' },
+  },
+  {
     // Config and tooling files run in Node and are not part of the typed
     // program, so the type-aware rules have nothing to work with there.
-    files: [
-      '*.config.js',
-      'eslint.boundaries.js',
-      'tools/**/*.js',
-      'jest.setup.js',
-      'design/**/*.mjs',
-    ],
+    files: ['*.config.js', 'eslint.boundaries.js', 'tools/**/*.js', 'jest.setup.js'],
     extends: [tseslint.configs.disableTypeChecked],
     languageOptions: {
       sourceType: 'commonjs',
@@ -83,7 +89,7 @@ module.exports = defineConfig([
       'dist/',
       'android/',
       'ios/',
-      'design/redesign-pantallas/',
+      'design/',
       // The fixtures are files that must FAIL lint. They are linted
       // deliberately by tests/architecture/boundaries.test.ts, which is the
       // only place their errors are expected (criterion B5).
