@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 /**
  * Placeholder route. Phase 1 builds the token system and the enforcement
@@ -7,8 +7,12 @@ import { Text, View } from 'react-native';
  */
 export default function Index() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.screen}>
       <Text>financeApp</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+});

@@ -30,7 +30,7 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 - [x] 1 · `chore/phase-1-scaffold`
 - [x] 2 · `chore/phase-1-eslint-boundaries`
 - [x] 3 · `feat/phase-1-token-primitives`
-- [ ] 4 · `feat/phase-1-token-layers`
+- [x] 4 · `feat/phase-1-token-layers`
 - [ ] 5 · `feat/phase-1-theme-derivation`
 - [ ] 6 · `feat/phase-1-theme-runtime`
 - [ ] 7 · `feat/phase-1-theme-persistence`
@@ -98,14 +98,14 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 ### C · Token system
 
-- [ ] **C1.** The system **shall** define design tokens in exactly three layers — primitive, semantic, component — each importable only by the layer directly above it.
+- [x] **C1.** The system **shall** define design tokens in exactly three layers — primitive, semantic, component — each importable only by the layer directly above it.
 - [x] **C2.** The primitive layer **shall** be the only module in the repository containing literal colour values.
-- [ ] **C3.** **If** a semantic token is assigned a literal colour value instead of a primitive reference, **then** the system **shall** fail typecheck.
-- [ ] **C4.** **If** a component token is assigned a primitive reference or a literal instead of a semantic reference, **then** the system **shall** fail typecheck.
+- [x] **C3.** **If** a semantic token is assigned a literal colour value instead of a primitive reference, **then** the system **shall** fail typecheck.
+- [x] **C4.** **If** a component token is assigned a primitive reference or a literal instead of a semantic reference, **then** the system **shall** fail typecheck.
 - [x] **C5.** **If** a file outside `src/theme/**` contains a hex, `rgb()`, `rgba()`, `hsl()` or `oklch()` colour literal, **then** the system **shall** fail lint.
-- [ ] **C6.** **If** a JSX `style` prop is given an inline object literal containing a literal value, **then** the system **shall** fail lint.
-- [ ] **C7.** **If** a semantic or component token name contains an appearance word — `green`, `red`, `blue`, `gold`, `teal`, `grey`, `gray`, `dark`, `light` — **then** the system **shall** fail the token-naming test.
-- [ ] **C8.** The typography scale **shall** expose at most eight variants, and **if** a ninth variant is added, **then** the system **shall** fail typecheck.
+- [x] **C6.** **If** a JSX `style` prop is given an inline object literal containing a literal value, **then** the system **shall** fail lint.
+- [x] **C7.** **If** a semantic or component token name contains an appearance word — `green`, `red`, `blue`, `gold`, `teal`, `grey`, `gray`, `dark`, `light` — **then** the system **shall** fail the token-naming test.
+- [x] **C8.** The typography scale **shall** expose at most eight variants, and **if** a ninth variant is added, **then** the system **shall** fail typecheck.
 
 ### D · Theme runtime and persistence
 
@@ -157,7 +157,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 **Cross-layer token violations are type errors because branding makes them type errors.** Primitive values carry an opaque branded type; the semantic layer is typed as a mapping whose values must be that brand; the component layer as a mapping whose values must be the semantic brand. A literal assigned at the semantic layer is a type mismatch, not a lint heuristic. This is the reason C3 and C4 say _typecheck_ rather than _lint_ — it costs nothing extra and it cannot be disabled inline.
 
-**The typography cap is a type-level assertion, not a runtime count.** C8 is enforced by a type test that asserts the variant union has exactly its eight named members. Adding a ninth widens the union and breaks the assertion, which fails `pnpm typecheck`. A runtime length check would only fail at test time and could be argued away; a compile error cannot.
+**The typography cap is a type-level assertion, not a runtime count.** The variant names are a tuple whose type only allows a length of one to eight. Adding a ninth name makes the tuple the wrong type, which fails `pnpm typecheck`. The scale starts at seven, leaving room for one more. A runtime length check would only fail at test time and could be argued away; a compile error cannot.
 
 **Font-scale caps differ by role, on purpose.** Body text clamps at 2.0; money amounts clamp at 1.6. Money is rendered in tight numeric layouts where a long amount at 2.0 either clips or reflows in a way that changes what the number appears to be — a worse accessibility outcome than slightly smaller text. E4 and E5 exist as separate criteria from E2 and E3 because the boundary is inclusive: at exactly the cap the text renders _at_ the cap, not one step below. That `<=` versus `<` distinction is the classic off-by-one here, and it is untestable unless it is written down.
 
