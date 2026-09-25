@@ -1,6 +1,5 @@
 /**
- * Design tokens. Three layers — primitive, semantic, component — arriving in
- * tasks 3 to 5. `primitives.ts` is not re-exported: only the semantic layer
- * may read it (criterion C1).
+ * Design tokens, in three layers: primitive → semantic → component. Only the
+ * component layer is public; the other two are private to src/theme (C1).
  */
-export {};
+export { themes, type ComponentTokens } from './components';

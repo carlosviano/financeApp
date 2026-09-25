@@ -16,8 +16,9 @@ const BOUNDARY_RULE_NAMES = [
   'boundaries/no-private',
   'architecture/app-routes-only',
   'no-restricted-imports',
-  // Not a boundary rule, but switching it off inline defeats C2 just as well.
+  // Not boundary rules, but switching them off inline defeats C2 and C6.
   'design-system/no-colour-literals',
+  'no-restricted-syntax',
 ];
 
 const settings = {
