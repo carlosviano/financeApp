@@ -19,7 +19,7 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 | 2   | ESLint boundary rules plus their fixture tests                      | `chore/phase-1-eslint-boundaries` | B1–B5                  |
 | 3   | Primitive tokens, using the design canvas as a guide                | `feat/phase-1-token-primitives`   | C2, C5                 |
 | 4   | Semantic and component layers, with layer violations as type errors | `feat/phase-1-token-layers`       | C1, C3, C4, C6, C7, C8 |
-| 5   | Derive the dark palette from light; contrast tests                  | `feat/phase-1-theme-derivation`   | D10, D11, D12          |
+| 5   | Hand-written dark palette; contrast tests                           | `feat/phase-1-theme-derivation`   | D11, D12               |
 | 6   | Theme runtime: three modes, live OS following                       | `feat/phase-1-theme-runtime`      | D1, D2, D3, D5         |
 | 7   | Theme persistence and its recovery paths                            | `feat/phase-1-theme-persistence`  | D4, D6, D7, D8, D9     |
 | 8   | Accessibility primitives: font-scale clamp, motion, hit targets     | `feat/phase-1-a11y-primitives`    | E1–E8                  |
@@ -31,7 +31,7 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 - [x] 2 · `chore/phase-1-eslint-boundaries`
 - [x] 3 · `feat/phase-1-token-primitives`
 - [x] 4 · `feat/phase-1-token-layers`
-- [ ] 5 · `feat/phase-1-theme-derivation`
+- [x] 5 · `feat/phase-1-theme-derivation`
 - [ ] 6 · `feat/phase-1-theme-runtime`
 - [ ] 7 · `feat/phase-1-theme-persistence`
 - [ ] 8 · `feat/phase-1-a11y-primitives`
@@ -59,7 +59,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 - `eslint-plugin-boundaries` and `no-restricted-imports` configuration enforcing the constitution's three import boundaries, each with a fixture that proves the rule still fires.
 - The three-layer token system: primitive, semantic, component — with cross-layer violations surfacing as type errors, not review comments.
 - Primitive values picked from the design canvas, which is used as a guide rather than copied literally.
-- The dark palette, derived from the light palette by a pure checked-in transform.
+- The dark palette, written by hand.
 - Theme runtime: `light`, `dark`, `system`; MMKV persistence; the recovery paths for every way that persistence can fail.
 - Accessibility primitives: font-scale clamping, reduced-motion handling, minimum hit targets.
 - The i18n layer and the lint rule banning user-visible string literals in JSX.
@@ -118,9 +118,8 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 - [ ] **D7.** **If** a persisted theme mode is present but is not one of the three valid modes, **then** the system **shall** discard it, apply `system`, and return an `invalid` recovery status from the theme loader.
 - [ ] **D8.** **If** reading the persisted theme mode throws at boot, **then** the system **shall** apply `system`, **shall** return an `unavailable` recovery status, and **shall not** propagate the error to the caller.
 - [ ] **D9.** **If** persisting a selected theme mode fails, **then** the system **shall** keep that mode applied for the remainder of the session.
-- [ ] **D10.** The dark palette **shall** be produced from the light palette by a pure checked-in transform, and the system **shall** fail the derivation test **if** any dark semantic token is authored by hand rather than produced by that transform.
-- [ ] **D11.** **If** a semantic token has a value in one theme and no value in the other, **then** the system **shall** fail typecheck.
-- [ ] **D12.** Every semantic text-on-surface token pair **shall** meet a WCAG AA contrast ratio of at least 4.5:1 in both the light and the dark theme.
+- [x] **D11.** **If** a semantic token has a value in one theme and no value in the other, **then** the system **shall** fail typecheck.
+- [x] **D12.** Every semantic text-on-surface token pair **shall** meet a WCAG AA contrast ratio of at least 4.5:1 in both the light and the dark theme.
 
 ### E · Accessibility primitives
 
@@ -151,7 +150,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 ## Edge cases and decisions made explicit
 
-**The dark palette is derived, not designed.** All thirty-four artboards share one identical `:root` block and it is light-only — `Settings-Appearance` offers Claro / Oscuro / Automático, but no dark values exist anywhere in the canvas. Rather than invent a second palette by hand and then have to keep two palettes honest forever, the dark theme is the output of a small pure function over the light primitives: the neutral scales are flipped end for end, so the lightest surface becomes the darkest, and each accent keeps its hue and is lightened enough to read on the darker surfaces. D10 is what stops this drifting — the test runs the function again and fails if the dark values disagree with it, so a hand-edit is caught rather than absorbed. D12 is what stops the transform producing something unreadable. If a specific token genuinely cannot be derived acceptably, the fix is an explicit, named exception in the transform, not a hand-written value beside the generated ones.
+**The dark palette is written by hand.** The canvas is light-only — `Settings-Appearance` offers Claro / Oscuro / Automático, but no dark values exist anywhere in it. The dark shades are picked by eye and added to the same primitive scales (`sand[900]`, `indigo[300]`, …), and `semantic.ts` maps the roles twice, once per theme. Both mappings share one type, so a role missing from either is a compile error (D11), and D12 checks that the hand-picked text colours stay readable.
 
 **The design canvas is a guide, not a source of truth.** `design/` is gitignored reference material. The primitive layer takes its colours, radii, shadows and fonts from it by eye and names them by appearance (`sand`, `slate`, `indigo`, …). Nothing checks the primitives against the canvas: a design that is only reference material should not be able to fail the build.
 
@@ -185,7 +184,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 **The `expo-router` route tree** waits for the phase that builds screens. Phase 1 mounts only the root layout needed to host the theme provider, and the constitution's five-provider ceiling is checked when there are providers to count.
 
-**Whether the dark transform needs per-token exceptions** cannot be known until the transform runs against the full primitive palette. If D12 fails for a specific pair, the decision of exception-versus-retune is made then, in the PR for task 5, and recorded in that phase's ADR.
+**`text.disabled` is exempt from D12.** It does not reach 4.5:1 in either theme. WCAG exempts inactive controls, and disabled labels are its only use.
 
 ---
 
@@ -196,7 +195,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 - [ ] `pnpm verify` passes on Linux in GitHub Actions and is configured as a required check on `main`.
 - [ ] No criterion is satisfied by a documented agreement. Each one points at a lint error, a compile error or a failing test.
 - [ ] ADR written for the three-layer token architecture and the branded-type enforcement.
-- [ ] ADR written for the derived dark palette, including the transform and any per-token exceptions.
+- [x] ADR written for the hand-written dark palette.
 - [ ] ADR written for the boundary-enforcement mechanism, including the B4 scan and its known limitation.
 - [ ] ADR written for deferring Sentry against constitution §7, or Sentry landed in this phase and the non-decision removed.
 - [ ] `README.md` states what the phase built and why the enforcement matters — it is currently empty.

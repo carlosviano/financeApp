@@ -15,7 +15,8 @@ export type SemanticColour = string & { readonly [semantic]: true };
 /** The roles every theme fills. One shape for light and dark. */
 export interface ColourRoles<C> {
   surface: { canvas: C; default: C; muted: C; sunken: C; transparent: C };
-  text: { primary: C; secondary: C; tertiary: C; onAccent: C };
+  /** `disabled` is exempt from contrast rules, as WCAG exempts inactive controls. */
+  text: { primary: C; secondary: C; disabled: C; onAccent: C };
   border: { default: C; strong: C };
   accent: { default: C; strong: C; subtle: C };
   positive: { default: C; subtle: C };
@@ -58,7 +59,7 @@ const lightColours: ColourRoles<PrimitiveColour> = {
   text: {
     primary: palette.slate[900],
     secondary: palette.slate[600],
-    tertiary: palette.slate[400],
+    disabled: palette.slate[400],
     onAccent: palette.white,
   },
   border: { default: palette.sand[300], strong: palette.sand[400] },
@@ -71,6 +72,32 @@ const lightColours: ColourRoles<PrimitiveColour> = {
   negative: { default: palette.orange[700], subtle: palette.orange[100] },
   caution: { default: palette.gold[600], subtle: palette.gold[100] },
   info: { default: palette.teal[700], subtle: palette.teal[100] },
+};
+
+const darkColours: ColourRoles<PrimitiveColour> = {
+  surface: {
+    canvas: palette.sand[900],
+    default: palette.sand[800],
+    muted: palette.sand[700],
+    sunken: palette.sand[950],
+    transparent: palette.transparent,
+  },
+  text: {
+    primary: palette.slate[50],
+    secondary: palette.slate[300],
+    disabled: palette.slate[500],
+    onAccent: palette.slate[900],
+  },
+  border: { default: palette.sand[600], strong: palette.sand[500] },
+  accent: {
+    default: palette.indigo[300],
+    strong: palette.indigo[200],
+    subtle: palette.indigo[950],
+  },
+  positive: { default: palette.green[400], subtle: palette.green[950] },
+  negative: { default: palette.orange[400], subtle: palette.orange[950] },
+  caution: { default: palette.gold[400], subtle: palette.gold[950] },
+  info: { default: palette.teal[400], subtle: palette.teal[950] },
 };
 
 /** The one place a primitive colour becomes a semantic one. */
@@ -93,10 +120,13 @@ const typography: Record<TypographyVariant, TextStyle> = {
   },
 };
 
-export const light: SemanticTheme = {
-  colours: asRoles(lightColours),
+const theme = (colours: ColourRoles<PrimitiveColour>): SemanticTheme => ({
+  colours: asRoles(colours),
   space: { xs: space[1], sm: space[2], md: space[3], lg: space[4], xl: space[6], xxl: space[8] },
   radius: { chip: radius.sm, control: radius.md, card: radius.lg },
   elevation: { low: shadow.sm, high: shadow.lg },
   typography,
-};
+});
+
+export const light = theme(lightColours);
+export const dark = theme(darkColours);

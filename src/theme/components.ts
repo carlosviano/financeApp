@@ -5,7 +5,7 @@
  */
 import type { TextStyle } from 'react-native';
 
-import { light, type SemanticColour, type SemanticTheme } from './semantic';
+import { dark, light, type SemanticColour, type SemanticTheme } from './semantic';
 
 interface ButtonColours {
   background: SemanticColour;
@@ -55,7 +55,7 @@ const componentTokens = ({
     disabled: {
       background: colours.surface.muted,
       border: colours.surface.muted,
-      label: colours.text.tertiary,
+      label: colours.text.disabled,
     },
     radius: radius.control,
     paddingHorizontal: space.lg,
@@ -66,4 +66,5 @@ const componentTokens = ({
 
 export const themes = {
   light: componentTokens(light),
+  dark: componentTokens(dark),
 };
