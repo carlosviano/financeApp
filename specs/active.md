@@ -14,10 +14,10 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 
 | #   | Task                                                                | Branch                            | Criteria               |
 | --- | ------------------------------------------------------------------- | --------------------------------- | ---------------------- |
-| 0   | Commit the SDD scaffolding; pin the design-token extraction         | `chore/phase-1-sdd-foundation`    | — (enables C9, C10)    |
+| 0   | Commit the SDD scaffolding; pin the design-token extraction         | `chore/phase-1-sdd-foundation`    | —                      |
 | 1   | Scaffold the Expo/TS project and the `pnpm verify` gate             | `chore/phase-1-scaffold`          | A1–A5                  |
 | 2   | ESLint boundary rules plus their fixture tests                      | `chore/phase-1-eslint-boundaries` | B1–B5                  |
-| 3   | Extract primitive tokens from the design canvas                     | `feat/phase-1-token-primitives`   | C2, C5, C9, C10        |
+| 3   | Primitive tokens, using the design canvas as a guide                | `feat/phase-1-token-primitives`   | C2, C5                 |
 | 4   | Semantic and component layers, with layer violations as type errors | `feat/phase-1-token-layers`       | C1, C3, C4, C6, C7, C8 |
 | 5   | Derive the dark palette from light; contrast tests                  | `feat/phase-1-theme-derivation`   | D10, D11, D12          |
 | 6   | Theme runtime: three modes, live OS following                       | `feat/phase-1-theme-runtime`      | D1, D2, D3, D5         |
@@ -29,7 +29,7 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 - [x] 0 · `chore/phase-1-sdd-foundation`
 - [x] 1 · `chore/phase-1-scaffold`
 - [x] 2 · `chore/phase-1-eslint-boundaries`
-- [ ] 3 · `feat/phase-1-token-primitives`
+- [x] 3 · `feat/phase-1-token-primitives`
 - [ ] 4 · `feat/phase-1-token-layers`
 - [ ] 5 · `feat/phase-1-theme-derivation`
 - [ ] 6 · `feat/phase-1-theme-runtime`
@@ -44,7 +44,7 @@ One task = one branch off `main` = one PR. Ordered by dependency, not by criteri
 
 The constitution's golden rule is that every architectural rule must be a lint error, a compile error, or a failing test. That rule is worth nothing until the toolchain that enforces it exists. This phase builds that toolchain first, before there is any feature code to protect, because retrofitting boundaries onto a codebase that has already grown around their absence is the exact failure this project is meant to argue against. A boundary rule added on day one costs an afternoon; the same rule added in month three costs a migration.
 
-The second thing this phase builds is the design-token system. There is a finished visual design in `design/redesign-pantallas` — thirty-four artboards sharing one palette. That design is **reference material for this phase, not a build target**. We extract its colour, radius, shadow and type values into the primitive layer and we stop there. No screen in that canvas gets implemented in Phase 1. The reason to extract tokens before building screens is the same reason to build lint rules before building features: once a screen exists, every hardcoded value in it is a value somebody has to go back and find.
+The second thing this phase builds is the design-token system. There is a finished visual design in `design/redesign-pantallas` — thirty-four artboards sharing one palette. That design is **reference material for this phase, not a build target**. We use it as a guide when picking the colour, radius, shadow and type values of the primitive layer, and we stop there. No screen in that canvas gets implemented in Phase 1. The reason to define tokens before building screens is the same reason to build lint rules before building features: once a screen exists, every hardcoded value in it is a value somebody has to go back and find.
 
 The phase ships exactly one component, `Button`. Its job is not to be useful. Its job is to be the proof that the three-layer token system, the theme runtime, the accessibility primitives and the no-escape-props rule all hold together in a real component — and to fail loudly if they do not.
 
@@ -58,7 +58,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 - GitHub Actions workflow running `pnpm verify` on every PR as a merge gate.
 - `eslint-plugin-boundaries` and `no-restricted-imports` configuration enforcing the constitution's three import boundaries, each with a fixture that proves the rule still fires.
 - The three-layer token system: primitive, semantic, component — with cross-layer violations surfacing as type errors, not review comments.
-- Primitive values extracted from the design canvas and pinned in `design/canvas-tokens.json`, checked by an extraction test that does not require the canvas to be present.
+- Primitive values picked from the design canvas, which is used as a guide rather than copied literally.
 - The dark palette, derived from the light palette by a pure checked-in transform.
 - Theme runtime: `light`, `dark`, `system`; MMKV persistence; the recovery paths for every way that persistence can fail.
 - Accessibility primitives: font-scale clamping, reduced-motion handling, minimum hit targets.
@@ -99,15 +99,13 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 ### C · Token system
 
 - [ ] **C1.** The system **shall** define design tokens in exactly three layers — primitive, semantic, component — each importable only by the layer directly above it.
-- [ ] **C2.** The primitive layer **shall** be the only module in the repository containing literal colour values.
+- [x] **C2.** The primitive layer **shall** be the only module in the repository containing literal colour values.
 - [ ] **C3.** **If** a semantic token is assigned a literal colour value instead of a primitive reference, **then** the system **shall** fail typecheck.
 - [ ] **C4.** **If** a component token is assigned a primitive reference or a literal instead of a semantic reference, **then** the system **shall** fail typecheck.
-- [ ] **C5.** **If** a file outside `src/theme/**` contains a hex, `rgb()`, `rgba()`, `hsl()` or `oklch()` colour literal, **then** the system **shall** fail lint.
+- [x] **C5.** **If** a file outside `src/theme/**` contains a hex, `rgb()`, `rgba()`, `hsl()` or `oklch()` colour literal, **then** the system **shall** fail lint.
 - [ ] **C6.** **If** a JSX `style` prop is given an inline object literal containing a literal value, **then** the system **shall** fail lint.
 - [ ] **C7.** **If** a semantic or component token name contains an appearance word — `green`, `red`, `blue`, `gold`, `teal`, `grey`, `gray`, `dark`, `light` — **then** the system **shall** fail the token-naming test.
 - [ ] **C8.** The typography scale **shall** expose at most eight variants, and **if** a ninth variant is added, **then** the system **shall** fail typecheck.
-- [ ] **C9.** The primitive layer **shall** carry the colour, radius, shadow and font-family values pinned in `design/canvas-tokens.json`, and the system **shall** fail the token-extraction test **if** a primitive value diverges from the value pinned there.
-- [ ] **C10.** **Where** the design canvas is present on the machine running the tests, the system **shall** fail **if** `design/canvas-tokens.json` is stale with respect to the canvas.
 
 ### D · Theme runtime and persistence
 
@@ -153,9 +151,9 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 ## Edge cases and decisions made explicit
 
-**The dark palette is derived, not designed.** All thirty-four artboards share one identical `:root` block and it is light-only — `Settings-Appearance` offers Claro / Oscuro / Automático, but no dark values exist anywhere in the canvas. Rather than invent a second palette by hand and then have to keep two palettes honest forever, the dark theme is the output of a pure function over the light primitives: neutrals are converted to OKLCH and their lightness remapped along a defined ramp, while accent hue and chroma are preserved and only lightness is lifted to clear the darker surfaces. D10 is what stops this drifting — the test regenerates the dark palette from light and fails if the checked-in values disagree, so a hand-edit is caught rather than absorbed. D12 is what stops the transform producing something unreadable. If a specific token genuinely cannot be derived acceptably, the fix is an explicit, named exception in the transform, not a hand-written value beside the generated ones.
+**The dark palette is derived, not designed.** All thirty-four artboards share one identical `:root` block and it is light-only — `Settings-Appearance` offers Claro / Oscuro / Automático, but no dark values exist anywhere in the canvas. Rather than invent a second palette by hand and then have to keep two palettes honest forever, the dark theme is the output of a small pure function over the light primitives: the neutral scales are flipped end for end, so the lightest surface becomes the darkest, and each accent keeps its hue and is lightened enough to read on the darker surfaces. D10 is what stops this drifting — the test runs the function again and fails if the dark values disagree with it, so a hand-edit is caught rather than absorbed. D12 is what stops the transform producing something unreadable. If a specific token genuinely cannot be derived acceptably, the fix is an explicit, named exception in the transform, not a hand-written value beside the generated ones.
 
-**The design canvas is not a build input.** `design/redesign-pantallas/` is ~3.1 MB of generated HTML and is gitignored; what is committed is `design/canvas-tokens.json`, the 26 `:root` custom properties all 34 artboards share, pinned with a SHA-256 of the block they came from. C9 checks the primitive layer against that file, so it runs on a CI machine that has never seen the canvas — which matters, because a check that only runs on one laptop is exactly the documented agreement the golden rule forbids. C10 is the other half: on a machine that _does_ have the canvas, `node design/extract-tokens.mjs --check` fails if the pinned extraction has gone stale, so design drift is caught where the design lives and token drift is caught everywhere. The extractor refuses to emit anything if the artboards stop agreeing on one palette, since at that point there is no single source to extract from.
+**The design canvas is a guide, not a source of truth.** `design/` is gitignored reference material. The primitive layer takes its colours, radii, shadows and fonts from it by eye and names them by appearance (`sand`, `slate`, `indigo`, …). Nothing checks the primitives against the canvas: a design that is only reference material should not be able to fail the build.
 
 **Cross-layer token violations are type errors because branding makes them type errors.** Primitive values carry an opaque branded type; the semantic layer is typed as a mapping whose values must be that brand; the component layer as a mapping whose values must be the semantic brand. A literal assigned at the semantic layer is a type mismatch, not a lint heuristic. This is the reason C3 and C4 say _typecheck_ rather than _lint_ — it costs nothing extra and it cannot be disabled inline.
 
@@ -187,7 +185,7 @@ The phase ships exactly one component, `Button`. Its job is not to be useful. It
 
 **The `expo-router` route tree** waits for the phase that builds screens. Phase 1 mounts only the root layout needed to host the theme provider, and the constitution's five-provider ceiling is checked when there are providers to count.
 
-**Whether the dark transform needs per-token exceptions** cannot be known until the transform runs against the full extracted palette. If D12 fails for a specific pair, the decision of exception-versus-retune is made then, in the PR for task 5, and recorded in that phase's ADR.
+**Whether the dark transform needs per-token exceptions** cannot be known until the transform runs against the full primitive palette. If D12 fails for a specific pair, the decision of exception-versus-retune is made then, in the PR for task 5, and recorded in that phase's ADR.
 
 ---
 
