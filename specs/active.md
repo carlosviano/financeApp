@@ -27,7 +27,7 @@ One task = one branch off `main` = one PR, ordered by dependency. Tick the check
 - [x] 0 · `docs/phase-2-mvp-spec`
 - [x] 1 · `feat/phase-2-theme-runtime`
 - [x] 2 · `feat/phase-2-i18n`
-- [ ] 3 · `feat/phase-2-base-components`
+- [x] 3 · `feat/phase-2-base-components`
 - [ ] 4 · `feat/phase-2-mock-api`
 - [ ] 5 · `feat/phase-2-navigation`
 - [ ] 6 · `feat/phase-2-home`
@@ -85,9 +85,9 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### U · Base components
 
-- [ ] **U1.** `Text`, `Button` and `Card` **shall** take every colour, spacing, radius and typography value from the component token layer.
-- [ ] **U2.** **While** `Button` is loading, the system **shall** render it disabled and expose `accessibilityState.busy` as true.
-- [ ] **U3.** **If** `Button` is pressed while disabled or loading, **then** the system **shall not** call `onPress`.
+- [x] **U1.** `Text`, `Button` and `Card` **shall** take every colour, spacing, radius and typography value from the component token layer.
+- [x] **U2.** **While** `Button` is loading, the system **shall** render it disabled and expose `accessibilityState.busy` as true.
+- [x] **U3.** **If** `Button` is pressed while disabled or loading, **then** the system **shall not** call `onPress`.
 
 ### M · Mock API and data
 

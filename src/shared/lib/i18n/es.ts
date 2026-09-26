@@ -4,4 +4,7 @@ import type { TranslationKey } from './en';
 export const es: Record<TranslationKey, string> = {
   'app.name': 'financeApp',
   'app.tagline': 'Todo tu dinero, en un solo sitio',
+  'common.continue': 'Continuar',
+  'common.cancel': 'Cancelar',
+  'common.learnMore': 'Saber más',
 };

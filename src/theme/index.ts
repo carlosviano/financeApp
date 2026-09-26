@@ -4,3 +4,4 @@
  */
 export { themes, type ComponentTokens } from './components';
 export { setThemeMode, themeModes, type ThemeMode } from './runtime';
+export type { TypographyVariant } from './semantic';
