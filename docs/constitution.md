@@ -21,7 +21,9 @@ If a proposal moves the project toward any of these, it is out of scope by defau
 
 ## 2. Golden rule
 
-**Every architectural rule must be a lint error, a compile error, or a failing test — never a documented agreement.**
+**The rules that matter most are enforced by the build — a lint error, a compile error or a failing test. The rest are conventions, checked in code review.**
+
+Enforced today: the feature boundaries (§4), no colour literals outside the primitive palette and no literal values in inline styles (§6), no `any`, and `pnpm verify` as a merge gate (§9). Token layering and naming (§6) are conventions. A new rule earns enforcement when breaking it would be costly and easy to miss; otherwise it stays a convention. _Amended by ADR 0004._
 
 ## 3. Closed technology stack
 
@@ -94,7 +96,7 @@ Breaking any of these must fail the build.
 
 ## 6. Design system
 
-Three layers, in this order, with no shortcuts:
+Three layers, in this order, with no shortcuts (by convention, see §2):
 
 ```
 primitive → semantic → component

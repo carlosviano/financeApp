@@ -25,7 +25,7 @@ One task = one branch off `main` = one PR, ordered by dependency. Tick the check
 | 10  | Settings: theme selector, persisted                  | `feat/phase-2-settings`          | T3, T4, G1     |
 
 - [x] 0 · `docs/phase-2-mvp-spec`
-- [ ] 1 · `feat/phase-2-theme-runtime`
+- [x] 1 · `feat/phase-2-theme-runtime`
 - [ ] 2 · `feat/phase-2-i18n`
 - [ ] 3 · `feat/phase-2-base-components`
 - [ ] 4 · `feat/phase-2-mock-api`
@@ -64,7 +64,6 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 - Any language other than English and Spanish, and an in-app language picker.
 - Maestro E2E.
 - AI features, the FastAPI backend, evals.
-- Removing branded types, C1 and B4 — agreed, scheduled after this phase.
 
 ---
 
@@ -72,8 +71,8 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### T · Theme
 
-- [ ] **T1.** The system **shall** support three theme modes: `light`, `dark` and `system`.
-- [ ] **T2.** **While** the mode is `system`, the system **shall** follow the OS colour scheme and apply a change without a restart.
+- [x] **T1.** The system **shall** support three theme modes: `light`, `dark` and `system`.
+- [x] **T2.** **While** the mode is `system`, the system **shall** follow the OS colour scheme and apply a change without a restart.
 - [ ] **T3.** **When** the user selects a mode in Settings, the system **shall** apply it immediately and persist it to MMKV.
 - [ ] **T4.** **If** the persisted mode is missing or not one of the three, **then** the system **shall** apply `system`.
 
@@ -140,6 +139,8 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 **Categorisation is optimistic.** X5 updates the cached transaction before the server answers and rolls back on error. The budgets query is invalidated on success, since a category change moves spending between budgets.
 
+**Rule simplification landed with task 1.** Branded colour types, the C1 layer-import rule and the B4 disable scan are gone, and constitution §2 is softened (ADRs 0002 and 0004). Branded types clashed with unistyles' theme types, which settled the timing.
+
 **The mock data is fixed.** Fixtures are generated once and checked in, so screenshots and tests are stable. "This month" in B1 is computed relative to the newest fixture, not the device clock, so the budgets screen never goes empty.
 
 ---
@@ -148,7 +149,6 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 - **Theme recovery statuses and boot-before-first-paint** (Phase 1 D5–D9) come back with the persistence work after this phase.
 - **Accessibility primitives and the i18n lint rule** (Phase 1 tasks 8 and 9) follow this phase.
-- **Rule simplification** (drop branded types, C1, B4; soften constitution §2) is its own refactor after this phase.
 - **Auth and onboarding** are the next product phase, together with secure-store.
 - **Sentry** needs an ADR against constitution §7 when it is scheduled.
 

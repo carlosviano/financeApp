@@ -10,17 +10,6 @@
 const boundaries = require('eslint-plugin-boundaries');
 const appRoutesOnly = require('./tools/eslint-rules/app-routes-only');
 
-/** Names the B4 scan looks for in eslint-disable directives. */
-const BOUNDARY_RULE_NAMES = [
-  'boundaries/dependencies',
-  'boundaries/no-private',
-  'architecture/app-routes-only',
-  'no-restricted-imports',
-  // Not boundary rules, but switching them off inline defeats C2 and C6.
-  'design-system/no-colour-literals',
-  'no-restricted-syntax',
-];
-
 const settings = {
   'boundaries/include': ['src/**/*'],
   'boundaries/elements': [
@@ -80,4 +69,4 @@ const plugins = {
   architecture: { rules: { 'app-routes-only': appRoutesOnly } },
 };
 
-module.exports = { settings, rules, plugins, BOUNDARY_RULE_NAMES };
+module.exports = { settings, rules, plugins };

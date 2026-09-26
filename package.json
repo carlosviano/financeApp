@@ -2,11 +2,11 @@
   "name": "financeapp",
   "version": "0.1.0",
   "private": true,
-  "main": "expo-router/entry",
+  "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "ios": "expo start --ios",
-    "android": "expo start --android",
+    "ios": "expo run:ios",
+    "android": "expo run:android",
     "prebuild": "expo prebuild",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -23,14 +23,17 @@
     "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
     "react-native": "0.86.3",
+    "react-native-nitro-modules": "^0.37.1",
     "react-native-safe-area-context": "~5.9.1",
-    "react-native-screens": "~4.28.0"
+    "react-native-screens": "~4.28.0",
+    "react-native-unistyles": "^3.3.0"
   },
   "devDependencies": {
     "@testing-library/react-native": "^14.0.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^22.20.3",
     "@types/react": "~19.2.2",
+    "babel-preset-expo": "~57.0.12",
     "eslint": "^9.39.1",
     "eslint-config-expo": "~57.0.2",
     "eslint-config-prettier": "^10.1.8",

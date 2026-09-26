@@ -1,20 +1,11 @@
 /**
  * Primitive tokens: raw values, named by appearance. This is the only module
  * allowed to contain colour literals (C2, C5). Colours are taken from the
- * design canvas as a guide; the dark shades are picked by hand. Only the
- * semantic layer may import this file (C1).
+ * design canvas as a guide; the dark shades are picked by hand. By convention
+ * only the semantic layer imports this file.
  */
 
-declare const primitive: unique symbol;
-
-/** A colour from this palette. A plain string is not one (C3). */
-export type PrimitiveColour = string & { readonly [primitive]: true };
-
-type Branded<T> = {
-  readonly [K in keyof T]: T[K] extends string ? PrimitiveColour : Branded<T[K]>;
-};
-
-const colours = {
+export const palette = {
   white: '#FFFFFF',
   transparent: 'transparent',
   sand: {
@@ -51,8 +42,6 @@ const colours = {
   green: { 100: '#D6EFDE', 400: '#4CC38A', 700: '#007840', 950: '#0F2A1C' },
   orange: { 100: '#FFDFD2', 400: '#FF8A5C', 700: '#BB3F00', 950: '#33170C' },
 } as const;
-
-export const palette = colours as Branded<typeof colours>;
 
 export const space = {
   1: 4,
