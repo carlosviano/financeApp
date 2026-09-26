@@ -1,3 +1,3 @@
-// Testing Library's matchers ship with the library from v12.4 onward, so this
-// file exists for the setup that later phases need (MMKV and reanimated mocks)
-// rather than for anything Phase 1 requires today.
+// Unistyles and Nitro are native modules with no runtime under Jest. The
+// package ships mocks for both.
+require('react-native-unistyles/mocks');

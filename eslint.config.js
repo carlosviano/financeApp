@@ -1,7 +1,6 @@
-// Flat ESLint config. The rules here are the enforcement half of the project's
-// golden rule: an architectural decision that only lives in a document is not
-// enforced at all. Criteria A4, A5, C1, C2, C5 and C6 of specs/active.md land
-// in this file.
+// Flat ESLint config. The rules that matter most are lint errors here: no
+// `any`, justified suppressions, the feature boundaries, no colour literals
+// outside the palette, and no literal values in inline styles.
 const { defineConfig } = require('eslint/config');
 const expoConfig = require('eslint-config-expo/flat');
 const tseslint = require('typescript-eslint');
@@ -9,14 +8,6 @@ const prettier = require('eslint-config-prettier/flat');
 const architecture = require('./eslint.boundaries');
 const noColourLiterals = require('./tools/eslint-rules/no-colour-literals');
 
-const PRIMITIVES = {
-  group: ['**/primitives'],
-  message: 'Only src/theme/semantic.ts may read primitive tokens. See constitution §6.',
-};
-const SEMANTIC = {
-  group: ['**/semantic'],
-  message: 'Only src/theme/components.ts may read semantic tokens. Import from src/theme.',
-};
 /** A number, string, negative number or template with no expressions. */
 const LITERAL =
   ':matches(Literal, UnaryExpression[argument.type="Literal"], TemplateLiteral[expressions.length=0])';
@@ -75,17 +66,6 @@ module.exports = defineConfig([
     ignores: ['src/theme/primitives.ts', 'tests/**'],
     plugins: { 'design-system': { rules: { 'no-colour-literals': noColourLiterals } } },
     rules: { 'design-system/no-colour-literals': 'error' },
-  },
-  {
-    // C1 — each token layer is read only by the layer above it. Everything
-    // outside the two layer files goes through src/theme/index.ts.
-    files: ['src/**/*.{ts,tsx}'],
-    ignores: ['src/theme/semantic.ts', 'src/theme/components.ts'],
-    rules: { 'no-restricted-imports': ['error', { patterns: [PRIMITIVES, SEMANTIC] }] },
-  },
-  {
-    files: ['src/theme/components.ts'],
-    rules: { 'no-restricted-imports': ['error', { patterns: [PRIMITIVES] }] },
   },
   {
     // C6 — an inline style object may not hold a literal value. Literals go in
