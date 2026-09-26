@@ -3,8 +3,6 @@
  * here reference the primitive palette. By convention only the component
  * layer imports this file.
  */
-import type { TextStyle } from 'react-native';
-
 import { fontFamily, palette, radius, shadow, space } from './primitives';
 
 /** The roles every theme fills. One shape for light and dark. */
@@ -35,12 +33,21 @@ export const typographyVariants = [
 
 export type TypographyVariant = (typeof typographyVariants)[number];
 
+/** The only text properties the scale sets. */
+export interface TypeStyle {
+  fontFamily: string;
+  fontSize: number;
+  lineHeight: number;
+  fontWeight: '400' | '600';
+  fontVariant?: 'tabular-nums'[];
+}
+
 export interface SemanticTheme {
   colours: ColourRoles;
   space: { xs: number; sm: number; md: number; lg: number; xl: number; xxl: number };
   radius: { chip: number; control: number; card: number };
   elevation: { low: string; high: string };
-  typography: Record<TypographyVariant, TextStyle>;
+  typography: Record<TypographyVariant, TypeStyle>;
 }
 
 const lightColours: ColourRoles = {
@@ -95,7 +102,7 @@ const darkColours: ColourRoles = {
   info: { default: palette.teal[400], subtle: palette.teal[950] },
 };
 
-const typography: Record<TypographyVariant, TextStyle> = {
+const typography: Record<TypographyVariant, TypeStyle> = {
   display: { fontFamily: fontFamily.display, fontSize: 32, lineHeight: 38, fontWeight: '600' },
   title: { fontFamily: fontFamily.display, fontSize: 24, lineHeight: 30, fontWeight: '600' },
   heading: { fontFamily: fontFamily.body, fontSize: 18, lineHeight: 24, fontWeight: '600' },

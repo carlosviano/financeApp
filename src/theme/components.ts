@@ -3,9 +3,13 @@
  * from semantic roles, never straight from the palette. This is the layer the rest of the app reads,
  * through `src/theme/index.ts`.
  */
-import type { TextStyle } from 'react-native';
-
-import { dark, light, type SemanticTheme } from './semantic';
+import {
+  dark,
+  light,
+  type SemanticTheme,
+  type TypeStyle,
+  type TypographyVariant,
+} from './semantic';
 
 interface ButtonColours {
   background: string;
@@ -15,7 +19,19 @@ interface ButtonColours {
 }
 
 export interface ComponentTokens {
-  screen: { background: string; foreground: string };
+  screen: { background: string; foreground: string; padding: number; gap: number };
+  text: {
+    variants: Record<TypographyVariant, TypeStyle>;
+    tones: {
+      default: string;
+      muted: string;
+      accent: string;
+      positive: string;
+      negative: string;
+      onAccent: string;
+    };
+  };
+  card: { background: string; border: string; radius: number; padding: number; shadow: string };
   button: {
     primary: ButtonColours;
     secondary: ButtonColours;
@@ -24,7 +40,9 @@ export interface ComponentTokens {
     radius: number;
     paddingHorizontal: number;
     paddingVertical: number;
-    label: TextStyle;
+    minHeight: number;
+    gap: number;
+    label: TypeStyle;
   };
 }
 
@@ -33,8 +51,32 @@ const componentTokens = ({
   space,
   radius,
   typography,
+  elevation,
 }: SemanticTheme): ComponentTokens => ({
-  screen: { background: colours.surface.canvas, foreground: colours.text.primary },
+  screen: {
+    background: colours.surface.canvas,
+    foreground: colours.text.primary,
+    padding: space.lg,
+    gap: space.md,
+  },
+  text: {
+    variants: typography,
+    tones: {
+      default: colours.text.primary,
+      muted: colours.text.secondary,
+      accent: colours.accent.default,
+      positive: colours.positive.default,
+      negative: colours.negative.default,
+      onAccent: colours.text.onAccent,
+    },
+  },
+  card: {
+    background: colours.surface.default,
+    border: colours.border.default,
+    radius: radius.card,
+    padding: space.lg,
+    shadow: elevation.low,
+  },
   button: {
     primary: {
       background: colours.accent.default,
@@ -62,6 +104,9 @@ const componentTokens = ({
     radius: radius.control,
     paddingHorizontal: space.lg,
     paddingVertical: space.md,
+    // 44pt is Apple's minimum comfortable touch target.
+    minHeight: 44,
+    gap: space.sm,
     label: typography.label,
   },
 });
