@@ -1,28 +1,23 @@
 /**
  * Semantic tokens: what a value is for, never what it looks like (C7). Colours
- * here must be primitive references (C3). Only the component layer may import
- * this file (C1).
+ * here reference the primitive palette. By convention only the component
+ * layer imports this file.
  */
 import type { TextStyle } from 'react-native';
 
-import { fontFamily, palette, radius, shadow, space, type PrimitiveColour } from './primitives';
-
-declare const semantic: unique symbol;
-
-/** A colour from a semantic role. A primitive or a plain string is not one (C4). */
-export type SemanticColour = string & { readonly [semantic]: true };
+import { fontFamily, palette, radius, shadow, space } from './primitives';
 
 /** The roles every theme fills. One shape for light and dark. */
-export interface ColourRoles<C> {
-  surface: { canvas: C; default: C; muted: C; sunken: C; transparent: C };
+export interface ColourRoles {
+  surface: { canvas: string; default: string; muted: string; sunken: string; transparent: string };
   /** `disabled` is exempt from contrast rules, as WCAG exempts inactive controls. */
-  text: { primary: C; secondary: C; disabled: C; onAccent: C };
-  border: { default: C; strong: C };
-  accent: { default: C; strong: C; subtle: C };
-  positive: { default: C; subtle: C };
-  negative: { default: C; subtle: C };
-  caution: { default: C; subtle: C };
-  info: { default: C; subtle: C };
+  text: { primary: string; secondary: string; disabled: string; onAccent: string };
+  border: { default: string; strong: string };
+  accent: { default: string; strong: string; subtle: string };
+  positive: { default: string; subtle: string };
+  negative: { default: string; subtle: string };
+  caution: { default: string; subtle: string };
+  info: { default: string; subtle: string };
 }
 
 /** C8 — the typography scale holds at most eight variants. */
@@ -41,14 +36,14 @@ export const typographyVariants = [
 export type TypographyVariant = (typeof typographyVariants)[number];
 
 export interface SemanticTheme {
-  colours: ColourRoles<SemanticColour>;
+  colours: ColourRoles;
   space: { xs: number; sm: number; md: number; lg: number; xl: number; xxl: number };
   radius: { chip: number; control: number; card: number };
   elevation: { low: string; high: string };
   typography: Record<TypographyVariant, TextStyle>;
 }
 
-const lightColours: ColourRoles<PrimitiveColour> = {
+const lightColours: ColourRoles = {
   surface: {
     canvas: palette.sand[50],
     default: palette.white,
@@ -74,7 +69,7 @@ const lightColours: ColourRoles<PrimitiveColour> = {
   info: { default: palette.teal[700], subtle: palette.teal[100] },
 };
 
-const darkColours: ColourRoles<PrimitiveColour> = {
+const darkColours: ColourRoles = {
   surface: {
     canvas: palette.sand[900],
     default: palette.sand[800],
@@ -100,10 +95,6 @@ const darkColours: ColourRoles<PrimitiveColour> = {
   info: { default: palette.teal[400], subtle: palette.teal[950] },
 };
 
-/** The one place a primitive colour becomes a semantic one. */
-const asRoles = (colours: ColourRoles<PrimitiveColour>) =>
-  colours as unknown as ColourRoles<SemanticColour>;
-
 const typography: Record<TypographyVariant, TextStyle> = {
   display: { fontFamily: fontFamily.display, fontSize: 32, lineHeight: 38, fontWeight: '600' },
   title: { fontFamily: fontFamily.display, fontSize: 24, lineHeight: 30, fontWeight: '600' },
@@ -120,8 +111,8 @@ const typography: Record<TypographyVariant, TextStyle> = {
   },
 };
 
-const theme = (colours: ColourRoles<PrimitiveColour>): SemanticTheme => ({
-  colours: asRoles(colours),
+const theme = (colours: ColourRoles): SemanticTheme => ({
+  colours,
   space: { xs: space[1], sm: space[2], md: space[3], lg: space[4], xl: space[6], xxl: space[8] },
   radius: { chip: radius.sm, control: radius.md, card: radius.lg },
   elevation: { low: shadow.sm, high: shadow.lg },

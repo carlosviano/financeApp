@@ -54,7 +54,7 @@ This project is a learning exercise, not a delivery race. The agent proposes, I 
 ## Rules
 
 - **Read `docs/constitution.md` and the active spec (`specs/active.md`) before touching code.** If there is no active spec for the task, stop and ask; do not improvise scope.
-- **Project golden rule**: every architectural rule must be a lint or compile error, never a documented agreement. If you spot a rule that lives only in a comment or a PR review, propose how to turn it into `eslint-plugin-boundaries`, `no-restricted-imports`, or a type. Do not break it in the meantime.
+- **Project golden rule**: the rules that matter most — feature boundaries, colour literals, literal inline styles, `any` — are lint or compile errors. Token layering and naming are conventions, checked in review. Don't add new enforcement without asking; if a convention keeps being broken, propose turning it into a rule. See constitution §2 and ADR 0004.
 - **Import boundaries** (enforced by ESLint — do not bypass with `// eslint-disable`):
   - A feature **may not** import another feature's internals; only from its `index.ts`.
   - `src/shared/**` **may not** import from `src/features/**`.
