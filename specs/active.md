@@ -26,7 +26,7 @@ One task = one branch off `main` = one PR, ordered by dependency. Tick the check
 
 - [x] 0 · `docs/phase-2-mvp-spec`
 - [x] 1 · `feat/phase-2-theme-runtime`
-- [ ] 2 · `feat/phase-2-i18n`
+- [x] 2 · `feat/phase-2-i18n`
 - [ ] 3 · `feat/phase-2-base-components`
 - [ ] 4 · `feat/phase-2-mock-api`
 - [ ] 5 · `feat/phase-2-navigation`
@@ -78,10 +78,10 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### I · Text and language
 
-- [ ] **I1.** The system **shall** render every user-visible string through `t()`.
-- [ ] **I2.** **If** code references a key that is not in the English catalogue, **then** the system **shall** fail typecheck.
-- [ ] **I3.** **If** the Spanish catalogue is missing a key that the English one has, **then** the system **shall** fail typecheck.
-- [ ] **I4.** **When** the device language is Spanish, the system **shall** show Spanish; otherwise it **shall** show English.
+- [x] **I1.** The system **shall** render every user-visible string through `t()`.
+- [x] **I2.** **If** code references a key that is not in the English catalogue, **then** the system **shall** fail typecheck.
+- [x] **I3.** **If** the Spanish catalogue is missing a key that the English one has, **then** the system **shall** fail typecheck.
+- [x] **I4.** **When** the device language is Spanish, the system **shall** show Spanish; otherwise it **shall** show English.
 
 ### U · Base components
 
