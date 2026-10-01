@@ -20,6 +20,15 @@ interface ButtonColours {
 
 export interface ComponentTokens {
   screen: { background: string; foreground: string; padding: number; gap: number };
+  /** The header and tab bar, which React Navigation draws rather than unistyles. */
+  navigation: {
+    background: string;
+    border: string;
+    title: string;
+    tint: string;
+    tabActive: string;
+    tabInactive: string;
+  };
   text: {
     variants: Record<TypographyVariant, TypeStyle>;
     tones: {
@@ -58,6 +67,14 @@ const componentTokens = ({
     foreground: colours.text.primary,
     padding: space.lg,
     gap: space.md,
+  },
+  navigation: {
+    background: colours.surface.default,
+    border: colours.border.default,
+    title: colours.text.primary,
+    tint: colours.accent.default,
+    tabActive: colours.accent.default,
+    tabInactive: colours.text.secondary,
   },
   text: {
     variants: typography,

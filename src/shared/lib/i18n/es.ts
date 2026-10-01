@@ -7,4 +7,10 @@ export const es: Record<TranslationKey, string> = {
   'common.continue': 'Continuar',
   'common.cancel': 'Cancelar',
   'common.learnMore': 'Saber más',
+  'common.comingSoon': 'Próximamente',
+  'tabs.home': 'Inicio',
+  'tabs.transactions': 'Movimientos',
+  'tabs.budgets': 'Presupuestos',
+  'tabs.settings': 'Ajustes',
+  'transactions.detailTitle': 'Movimiento',
 };
