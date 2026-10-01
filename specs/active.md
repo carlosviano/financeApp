@@ -30,7 +30,7 @@ One task = one branch off `main` = one PR, ordered by dependency. Tick the check
 - [x] 3 · `feat/phase-2-base-components`
 - [x] 4 · `feat/phase-2-mock-api`
 - [x] 5 · `feat/phase-2-navigation`
-- [ ] 6 · `feat/phase-2-home`
+- [x] 6 · `feat/phase-2-home`
 - [ ] 7 · `feat/phase-2-transactions-feed`
 - [ ] 8 · `feat/phase-2-categorise`
 - [ ] 9 · `feat/phase-2-budgets`
@@ -108,7 +108,7 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### H · Home
 
-- [ ] **H1.** Home **shall** show the total balance across accounts and one row per account with its balance.
+- [x] **H1.** Home **shall** show the total balance across accounts and one row per account with its balance.
 
 ### X · Transactions
 
