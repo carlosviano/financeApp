@@ -5,10 +5,10 @@ import { t } from '@/shared/lib/i18n';
 import { Button, Card, Text } from '@/shared/ui';
 
 /**
- * Placeholder route until the MVP screens land. It shows the base components,
- * so they can be checked on a device in both themes.
+ * Home tab. Until task 6 replaces it, it shows the base components so they can
+ * be checked on a device in both themes.
  */
-export default function Index() {
+export default function HomeTab() {
   return (
     <View style={styles.screen}>
       <Card>

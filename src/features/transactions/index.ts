@@ -7,4 +7,5 @@ export {
   useTransaction,
   useTransactions,
 } from './api/transactions';
+export { TransactionList } from './ui/TransactionList';
 export type { Category, Transaction, TransactionPage } from './model/types';

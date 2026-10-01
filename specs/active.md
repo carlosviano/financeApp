@@ -29,7 +29,7 @@ One task = one branch off `main` = one PR, ordered by dependency. Tick the check
 - [x] 2 · `feat/phase-2-i18n`
 - [x] 3 · `feat/phase-2-base-components`
 - [x] 4 · `feat/phase-2-mock-api`
-- [ ] 5 · `feat/phase-2-navigation`
+- [x] 5 · `feat/phase-2-navigation`
 - [ ] 6 · `feat/phase-2-home`
 - [ ] 7 · `feat/phase-2-transactions-feed`
 - [ ] 8 · `feat/phase-2-categorise`
@@ -98,8 +98,8 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### N · Navigation
 
-- [ ] **N1.** The system **shall** show four tabs: Home, Transactions, Budgets, Settings.
-- [ ] **N2.** **When** the user taps a transaction, the system **shall** open its detail screen.
+- [x] **N1.** The system **shall** show four tabs: Home, Transactions, Budgets, Settings.
+- [x] **N2.** **When** the user taps a transaction, the system **shall** open its detail screen.
 
 ### Q · Loading and errors (every data screen)
 
