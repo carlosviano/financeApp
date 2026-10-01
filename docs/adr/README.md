@@ -18,6 +18,7 @@ This directory holds the log of closed architectural decisions for financeApp. E
 | 0002 | Three token layers, kept apart by convention    | Accepted |
 | 0003 | The dark palette is written by hand             | Accepted |
 | 0004 | Enforce the rules that matter, convene the rest | Accepted |
+| 0005 | The mock API is a transport, not MSW            | Accepted |
 
 <!-- Add rows above this line as ADRs are written. -->
 

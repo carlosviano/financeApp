@@ -5,3 +5,6 @@
  * something here needs to know about a feature, it belongs in that feature.
  */
 export const APP_NAME = 'financeApp';
+
+/** Base URL of the API. While there is no backend, MSW answers on this host. */
+export const API_URL = 'https://api.financeapp.test';

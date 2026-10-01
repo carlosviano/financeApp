@@ -1,8 +1,10 @@
-/**
- * Public API for the `transactions` feature.
- *
- * This file is the only importable surface of the feature. Anything not
- * re-exported here is private to `src/features/transactions/` and importing it from
- * outside fails lint (criterion B1).
- */
-export {};
+/** Public API for the `transactions` feature. */
+export {
+  getCategories,
+  getTransaction,
+  getTransactionPage,
+  useCategories,
+  useTransaction,
+  useTransactions,
+} from './api/transactions';
+export type { Category, Transaction, TransactionPage } from './model/types';

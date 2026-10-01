@@ -44,7 +44,7 @@ The stack below is **closed**. Adding, removing or swapping any item requires an
 | Persistence (secrets) | expo-secure-store                                      |
 | Networking            | `fetch` with a small typed wrapper                     |
 | Forms & validation    | react-hook-form + zod                                  |
-| Mock API (v1)         | MSW with cursor pagination and simulated latency       |
+| Mock API (v1)         | Mock transport behind the fetch wrapper (ADR 0005)     |
 | Observability         | Sentry (with source maps)                              |
 | Testing               | Jest + React Native Testing Library · Maestro (E2E)    |
 | CI/CD                 | GitHub Actions + EAS                                   |
