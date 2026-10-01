@@ -2,7 +2,7 @@
 
 ## Project
 
-Personal-finance app in React Native (Expo SDK 57, RN 0.86, TS strict) that unifies bank accounts, transaction feed, categorisation and budgets. Portfolio project: prioritises architectural judgment over feature volume (6–7 screens). **Feature-first** architecture (`auth`, `transactions`, `budgets`, `settings`) with boundaries enforced by ESLint and TypeScript, not by convention. Server state in TanStack Query, client state in Zustand, styling with react-native-unistyles 3 on top of a 3-layer design-token system, mock API with MSW (cursor pagination), persistence with MMKV + expo-secure-store. Sentry from day one, tests as a real CI gate.
+Personal-finance app in React Native (Expo SDK 57, RN 0.86, TS strict) that unifies bank accounts, transaction feed, categorisation and budgets. Portfolio project: prioritises architectural judgment over feature volume (6–7 screens). **Feature-first** architecture (`auth`, `transactions`, `budgets`, `settings`) with boundaries enforced by ESLint and TypeScript, not by convention. Server state in TanStack Query, client state in Zustand, styling with react-native-unistyles 3 on top of a 3-layer design-token system, mock API behind the fetch wrapper (cursor pagination), persistence with MMKV + expo-secure-store. Sentry from day one, tests as a real CI gate.
 
 ## How we work — human in the loop
 
@@ -20,7 +20,7 @@ This project is a learning exercise, not a delivery race. The agent proposes, I 
 
 **No AI attribution anywhere.** Never add a `Co-Authored-By` trailer naming Claude to a commit, and never add a "Generated with Claude Code" line to a pull request description. This repository is a portfolio, and the commit history should read as mine.
 
-**Simple first.** Propose the simplest thing that works. No generators, extraction scripts, custom checks or extra tooling unless I ask for them. Keep comments and docs short, and don't add files that only restate the obvious. The design canvas is a guide: pick values close to it instead of copying it literally.
+**Simple first.** Propose the simplest thing that works. No generators, extraction scripts, custom checks or extra tooling unless I ask for them. Keep comments and docs short, and don't add files that only restate the obvious. The design canvas is a guide: pick values close to it instead of copying it literally. Write code a mid-level developer can read on first pass: plain `if`/`else` over nested ternaries, named steps over chained one-liners, and a short comment where the reason isn't obvious.
 
 **Learning is part of every task.** The goal of this project is to reach a senior level, so understanding each decision matters as much as shipping it. `notes/` is gitignored study material and never appears in this repository.
 

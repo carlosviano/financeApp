@@ -10,25 +10,25 @@
 
 One task = one branch off `main` = one PR, ordered by dependency. Tick the checkbox and the criteria it covered in the PR that lands it.
 
-| #   | Task                                                 | Branch                           | Criteria       |
-| --- | ---------------------------------------------------- | -------------------------------- | -------------- |
-| 0   | Close Phase 1, open this spec                        | `docs/phase-2-mvp-spec`          | —              |
-| 1   | Theme runtime: unistyles, three modes, OS following  | `feat/phase-2-theme-runtime`     | T1, T2         |
-| 2   | i18n: English by default, Spanish as second language | `feat/phase-2-i18n`              | I1, I2, I3, I4 |
-| 3   | Base components: `Text`, `Button`, `Card`            | `feat/phase-2-base-components`   | U1, U2, U3     |
-| 4   | Mock API: MSW, `fetch` wrapper, TanStack Query       | `feat/phase-2-mock-api`          | M1, M2, M3, M4 |
-| 5   | Navigation: tabs and the transaction detail route    | `feat/phase-2-navigation`        | N1, N2         |
-| 6   | Home: total balance and accounts                     | `feat/phase-2-home`              | H1, Q1, Q2     |
-| 7   | Transactions feed with cursor pagination             | `feat/phase-2-transactions-feed` | X1, X2, X3     |
-| 8   | Transaction detail and categorisation                | `feat/phase-2-categorise`        | X4, X5         |
-| 9   | Budgets for the current month                        | `feat/phase-2-budgets`           | B1, B2         |
-| 10  | Settings: theme selector, persisted                  | `feat/phase-2-settings`          | T3, T4, G1     |
+| #   | Task                                                      | Branch                           | Criteria       |
+| --- | --------------------------------------------------------- | -------------------------------- | -------------- |
+| 0   | Close Phase 1, open this spec                             | `docs/phase-2-mvp-spec`          | —              |
+| 1   | Theme runtime: unistyles, three modes, OS following       | `feat/phase-2-theme-runtime`     | T1, T2         |
+| 2   | i18n: English by default, Spanish as second language      | `feat/phase-2-i18n`              | I1, I2, I3, I4 |
+| 3   | Base components: `Text`, `Button`, `Card`                 | `feat/phase-2-base-components`   | U1, U2, U3     |
+| 4   | Mock API: mock transport, `fetch` wrapper, TanStack Query | `feat/phase-2-mock-api`          | M1, M2, M3, M4 |
+| 5   | Navigation: tabs and the transaction detail route         | `feat/phase-2-navigation`        | N1, N2         |
+| 6   | Home: total balance and accounts                          | `feat/phase-2-home`              | H1, Q1, Q2     |
+| 7   | Transactions feed with cursor pagination                  | `feat/phase-2-transactions-feed` | X1, X2, X3     |
+| 8   | Transaction detail and categorisation                     | `feat/phase-2-categorise`        | X4, X5         |
+| 9   | Budgets for the current month                             | `feat/phase-2-budgets`           | B1, B2         |
+| 10  | Settings: theme selector, persisted                       | `feat/phase-2-settings`          | T3, T4, G1     |
 
 - [x] 0 · `docs/phase-2-mvp-spec`
 - [x] 1 · `feat/phase-2-theme-runtime`
 - [x] 2 · `feat/phase-2-i18n`
 - [x] 3 · `feat/phase-2-base-components`
-- [ ] 4 · `feat/phase-2-mock-api`
+- [x] 4 · `feat/phase-2-mock-api`
 - [ ] 5 · `feat/phase-2-navigation`
 - [ ] 6 · `feat/phase-2-home`
 - [ ] 7 · `feat/phase-2-transactions-feed`
@@ -51,7 +51,7 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 - Theme runtime (unistyles) with light, dark and system modes; the mode persisted in MMKV.
 - A minimal i18n layer: English as the default language, Spanish as the second, and a typed `t()`.
 - Base components `Text`, `Button` and `Card`, reading only from component tokens.
-- MSW mock API with simulated latency and cursor pagination; a small typed `fetch` wrapper; TanStack Query with key factories per feature.
+- A mock API with simulated latency and cursor pagination, behind a small typed `fetch` wrapper; TanStack Query with key factories per feature.
 - Five screens: Home, Transactions, Transaction detail, Budgets, Settings, with tab navigation.
 
 **Out — explicitly:**
@@ -91,10 +91,10 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### M · Mock API and data
 
-- [ ] **M1.** The system **shall** serve accounts, transactions, categories and budgets from MSW handlers with simulated latency.
-- [ ] **M2.** The transactions endpoint **shall** return pages of 20, newest first, with an opaque `nextCursor` that is null on the last page.
-- [ ] **M3.** Every query key **shall** come from its feature's `api/keys.ts`.
-- [ ] **M4.** The system **shall** carry money as integer minor units and format it with the device locale only when rendering.
+- [x] **M1.** The system **shall** serve accounts, transactions, categories and budgets from a mock API with simulated latency.
+- [x] **M2.** The transactions endpoint **shall** return pages of 20, newest first, with an opaque `nextCursor` that is null on the last page.
+- [x] **M3.** Every query key **shall** come from its feature's `api/keys.ts`.
+- [x] **M4.** The system **shall** carry money as integer minor units and format it with the device locale only when rendering.
 
 ### N · Navigation
 
@@ -131,7 +131,7 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ## Edge cases and decisions made explicit
 
-**Dependencies this phase adds.** From the constitution's stack: `react-native-unistyles` (plus its peer `react-native-nitro-modules`), `react-native-mmkv`, `@tanstack/react-query`, `msw`. Not in the stack: `react-native-url-polyfill` and `fast-text-encoding`, which MSW needs on React Native, and `expo-localization` to read the device language. Unistyles 3 and MMKV are native modules, so the app runs in a dev client (`pnpm prebuild`), not Expo Go. Each is installed in the task that needs it.
+**Dependencies this phase adds.** From the constitution's stack: `react-native-unistyles` (plus its peer `react-native-nitro-modules`), `react-native-mmkv`, `@tanstack/react-query`. Not in the stack: `expo-localization`, to read the device language. Unistyles 3 and MMKV are native modules, so the app runs in a dev client (`pnpm prebuild`), not Expo Go. Each is installed in the task that needs it.
 
 **i18n has no library.** English is the source catalogue, and its keys are the type of `t(key)`, which makes I2 a compile error. The Spanish catalogue is typed with the same shape as the English one, which makes I3 a compile error. Two languages and a handful of placeholders do not need i18next. A library is worth it once plurals or more languages arrive.
 
@@ -140,6 +140,8 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 **Categorisation is optimistic.** X5 updates the cached transaction before the server answers and rolls back on error. The budgets query is invalidated on success, since a category change moves spending between budgets.
 
 **Rule simplification landed with task 1.** Branded colour types, the C1 layer-import rule and the B4 disable scan are gone, and constitution §2 is softened (ADRs 0002 and 0004). Branded types clashed with unistyles' theme types, which settled the timing.
+
+**The mock API is a transport, not MSW.** MSW 3 dropped React Native support, and MSW 2 on React Native 0.86 intercepted requests but returned empty bodies, because React Native's `fetch` can't read the stream MSW builds responses from. `getJson` sends requests through a swappable transport instead: `fetch` by default, and `src/mocks/` installs one that answers from in-memory data. Swapping in a real backend means deleting one import in `index.ts`. See ADR 0005.
 
 **The mock data is fixed.** Fixtures are generated once and checked in, so screenshots and tests are stable. "This month" in B1 is computed relative to the newest fixture, not the device clock, so the budgets screen never goes empty.
 
@@ -161,5 +163,5 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 - [ ] `pnpm verify` green in CI.
 - [ ] The app runs on an iOS simulator and an Android emulator, with all five screens working in light and dark.
 - [ ] `README.md` shows what the app does, with screenshots, and how to run it.
-- [ ] ADR written for the mock API approach (MSW on native, cursor pagination).
+- [x] ADR written for the mock API approach (ADR 0005: a mock transport instead of MSW).
 - [ ] `specs/active.md` archived as `specs/phase-2-mvp.md`.

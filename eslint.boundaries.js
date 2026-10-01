@@ -17,6 +17,7 @@ const settings = {
     { type: 'feature', pattern: 'src/features/*', capture: ['featureName'] },
     { type: 'shared', pattern: 'src/shared/**/*', partialMatch: false },
     { type: 'theme', pattern: 'src/theme/**/*', partialMatch: false },
+    { type: 'mocks', pattern: 'src/mocks/**/*', partialMatch: false },
   ],
 };
 
@@ -41,6 +42,12 @@ const rules = {
         {
           from: { element: { type: 'shared' } },
           allow: { to: { element: { types: { anyOf: ['shared', 'theme'] } } } },
+        },
+        // The mock API reads feature types and shared config. Nothing in src
+        // imports it; only the root index.ts starts it.
+        {
+          from: { element: { type: 'mocks' } },
+          allow: { to: { element: { types: { anyOf: ['feature', 'shared'] } } } },
         },
         {
           from: { element: { type: 'theme' } },
