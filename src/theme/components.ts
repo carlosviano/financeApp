@@ -41,6 +41,12 @@ export interface ComponentTokens {
     };
   };
   card: { background: string; border: string; radius: number; padding: number; shadow: string };
+  listRow: {
+    background: string;
+    backgroundPressed: string;
+    divider: string;
+    paddingVertical: number;
+  };
   button: {
     primary: ButtonColours;
     secondary: ButtonColours;
@@ -93,6 +99,12 @@ const componentTokens = ({
     radius: radius.card,
     padding: space.lg,
     shadow: elevation.low,
+  },
+  listRow: {
+    background: colours.surface.default,
+    backgroundPressed: colours.surface.sunken,
+    divider: colours.border.default,
+    paddingVertical: space.md,
   },
   button: {
     primary: {

@@ -31,7 +31,7 @@ One task = one branch off `main` = one PR, ordered by dependency. Tick the check
 - [x] 4 · `feat/phase-2-mock-api`
 - [x] 5 · `feat/phase-2-navigation`
 - [x] 6 · `feat/phase-2-home`
-- [ ] 7 · `feat/phase-2-transactions-feed`
+- [x] 7 · `feat/phase-2-transactions-feed`
 - [ ] 8 · `feat/phase-2-categorise`
 - [ ] 9 · `feat/phase-2-budgets`
 - [ ] 10 · `feat/phase-2-settings`
@@ -112,9 +112,9 @@ Phase 1 built the token system and the rules around it, but there is still nothi
 
 ### X · Transactions
 
-- [ ] **X1.** The transactions screen **shall** list transactions newest first, grouped by day.
-- [ ] **X2.** **When** the user scrolls near the end of the list, the system **shall** fetch the next page, and **shall** stop when `nextCursor` is null.
-- [ ] **X3.** **If** fetching a later page fails, **then** the system **shall** keep the loaded pages and show a retry at the end of the list.
+- [x] **X1.** The transactions screen **shall** list transactions newest first, grouped by day.
+- [x] **X2.** **When** the user scrolls near the end of the list, the system **shall** fetch the next page, and **shall** stop when `nextCursor` is null.
+- [x] **X3.** **If** fetching a later page fails, **then** the system **shall** keep the loaded pages and show a retry at the end of the list.
 - [ ] **X4.** The detail screen **shall** show amount, merchant, date, account and category.
 - [ ] **X5.** **When** the user picks a new category, the system **shall** show it immediately and save it; **if** saving fails, **then** it **shall** restore the previous category and say so.
 
