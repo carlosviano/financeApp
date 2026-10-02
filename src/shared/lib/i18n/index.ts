@@ -11,4 +11,7 @@ export const t = (key: TranslationKey) => translate(language, key);
 /** The device's formatting locale, e.g. `en-ES`, for numbers, money and dates. */
 export const locale = getLocales()[0].languageTag;
 
+/** The device's time zone, e.g. `Europe/Madrid`, for deciding which day a date falls on. */
+export const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 export type { TranslationKey };

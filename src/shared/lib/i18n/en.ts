@@ -17,6 +17,8 @@ export const en = {
   'tabs.budgets': 'Budgets',
   'tabs.settings': 'Settings',
   'transactions.detailTitle': 'Transaction',
+  'transactions.empty': 'No transactions yet.',
+  'transactions.loadMoreFailed': "Couldn't load more transactions.",
 } as const;
 
 export type TranslationKey = keyof typeof en;

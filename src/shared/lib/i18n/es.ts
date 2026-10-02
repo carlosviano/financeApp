@@ -19,4 +19,6 @@ export const es: Record<TranslationKey, string> = {
   'tabs.budgets': 'Presupuestos',
   'tabs.settings': 'Ajustes',
   'transactions.detailTitle': 'Movimiento',
+  'transactions.empty': 'Todavía no hay movimientos.',
+  'transactions.loadMoreFailed': 'No se han podido cargar más movimientos.',
 };
